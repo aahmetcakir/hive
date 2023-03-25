@@ -12,7 +12,7 @@ export default function Home() {
       </Head>
       <main>
         <h1 className="text-4xl font-bold">Ana Sayfa</h1>
-        <Link href="/login">Giriş Yap</Link>
+        <Link href="/login">Giriş Yap!</Link>
       </main>
     </>
   )

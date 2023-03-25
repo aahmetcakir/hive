@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 
 export default function Dashboard() {
   return (
@@ -11,6 +12,7 @@ export default function Dashboard() {
       </Head>
       <main>
         <h1 className="text-4xl font-bold">Gösterge paneli</h1>
+        <Link href="/"></Link>
       </main>
     </>
   )
