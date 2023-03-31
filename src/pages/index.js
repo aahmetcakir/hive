@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
-
+import InformationCard from '@/components/InformationCard'
+import QrCard from '@/components/QrCard'
 export default function Home() {
   return (
     <>
@@ -11,9 +12,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1 className="text-4xl font-bold">Ana Sayfa</h1>
+        <InformationCard />
+        <QrCard />
         <Link href="/login">Giriş Yap!</Link>
-      </main>
+      </main >
     </>
   )
 }

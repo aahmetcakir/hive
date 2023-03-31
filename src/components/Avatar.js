@@ -1,8 +1,27 @@
-export default function ProfileMenu({ name }) {
+import { BigHead } from '@bigheads/core'
+export default function Avatar({ size }) {
   return (
-    <div className="flex items-center gap-2 border border-darkgray px-2 py-1  m-1 rounded-xl shadow-sm hover:bg-gray-50 cursor-pointer">
-      <span className="font-bold">{name}</span>
-      <span className="bg-gray-500 rounded-full w-[38px] h-[38px] inline-block"></span>
-    </div>
-  );
+    <BigHead
+      accessory="shades"
+      body="chest"
+      circleColor="blue"
+      clothing="tankTop"
+      clothingColor="black"
+      eyebrows="angry"
+      eyes="wink"
+      facialHair="mediumBeard"
+      graphic="react"
+      hair="short"
+      hairColor="black"
+      hat="none"
+      hatColor="green"
+      lashes="false"
+      lipColor="purple"
+      mask="true"
+      mouth="open"
+      skinTone="brown"
+      className={`w-[${size}px] h-[${size}px]`}
+    />
+  )
 }
+
