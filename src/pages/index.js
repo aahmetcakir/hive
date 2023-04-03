@@ -1,7 +1,8 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import InformationCard from '@/components/InformationCard'
 import QrCard from '@/components/QrCard'
+import ParticaptionCard from '@/components/ParticaptionCard'
+import Feeds from '@/components/Feeds'
 export default function Home() {
   return (
     <>
@@ -11,10 +12,17 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <InformationCard />
-        <QrCard />
-        <Link href="/login">Giriş Yap!</Link>
+      <main className='grid grid-cols-12 gap-x-8'>
+        <div className='col-span-3'>
+          <InformationCard />
+          <QrCard />
+        </div>
+        <div className="col-span-6">
+          <Feeds />
+        </div>
+        <div className="col-span-3">
+          <ParticaptionCard />
+        </div>
       </main >
     </>
   )
