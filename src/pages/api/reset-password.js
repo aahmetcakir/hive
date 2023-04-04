@@ -12,6 +12,7 @@ const handler = async (req, res) => {
         ...mailOptions,
         to: data.email,
         subject: "Şifre Sıfırlama Talebi",
+        text: "Şifre sıfırlama talebiniz alınmıştır. Lütfen aşağıdaki linke tıklayarak şifrenizi sıfırlayınız.",
         html: htmlTemplate.replaceAll("{{action_url}}", "http://localhost:3000/reset-password").replaceAll("{{name}}", "Ahmet").replaceAll("{{email}}", data.email).replaceAll("[Product Name]", "Hive")
       });
 
