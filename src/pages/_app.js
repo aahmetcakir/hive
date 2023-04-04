@@ -5,9 +5,9 @@ import { useRouter } from 'next/router'
 export default function App({ Component, pageProps }) {
   const router = useRouter()
 
-  const removedPathFromLayout = ['/login', '/register']
+  const removedPathFromLayout = ['/login', '/register', '/reset-password']
   const isRemovedPath = removedPathFromLayout.includes(router.pathname)
-  
+
   if (isRemovedPath) {
     return <Component {...pageProps} />
   } else {

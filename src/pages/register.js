@@ -2,8 +2,13 @@ import Head from 'next/head'
 import Input from "@/components/Input"
 import Button from "@/components/Button"
 import Link from 'next/link'
+import { useState } from 'react'
 
 export default function Register() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [name, setName] = useState('')
+  const [surname, setSurname] = useState('')
   return (
     <>
       <Head>
@@ -13,12 +18,13 @@ export default function Register() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className='bg-gray-800 h-screen flex items-center justify-center'>
-        <div className='flex flex-col items-center bg-white rounded-lg px-6 pt-7 w-[554px] h-[540px]'>
+        <div className='flex flex-col items-center bg-white rounded-lg px-6 pt-7 w-[554px]'>
           <h1 className="text-4xl font-bold text-black mb-4">Topluluğumuza katıl</h1>
           <h4 className='text-gray-500 mb-6'>Etkinliğini ürünümüz ile güçlendir</h4>
           <Input className="mb-6" type="text" placeholder="Ad" label="Ad *" />
-          <Input className="mb-6" type="email" placeholder="Email" label="Email" />
-          <Input type="password" label="Password" placeholder="Şifre" />
+          <Input className="mb-6" type="text" placeholder="Soyad" label="Soyad *" />
+          <Input className="mb-6" type="email" placeholder="Email" label="Email *" />
+          <Input type="password" label="Password *" placeholder="Şifre" />
           <Button className="my-6">Giriş Yap</Button>
           <Link href="/login">Hesabın zaten var mı? <span className='text-green-500'>Giriş yap</span> </Link>
         </div>
