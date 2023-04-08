@@ -3,12 +3,48 @@ import Input from "@/components/Input"
 import Button from "@/components/Button"
 import Link from 'next/link'
 import { useState } from 'react'
-
+import toast, { Toaster } from 'react-hot-toast'
+import { useRouter } from 'next/router'
 export default function Register() {
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
   const [surname, setSurname] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const handleClick = async () => {
+    const payload = {
+      firstName: name,
+      lastName: surname,
+      email: email,
+      password: password,
+    }
+    try {
+      toast.loading('Giriş yapılıyor...');
+      setLoading(true)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/hosts`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
+      const data = await res.json()
+      console.log(data);
+      toast.remove();
+      toast.success('Kayıt başarılı')
+      router.push('/login')
+    } catch (error) {
+      toast.remove();
+      toast.error('Kayıt başarısız')
+      console.log(error);
+    }
+    finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <>
       <Head>
@@ -18,15 +54,19 @@ export default function Register() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className='bg-gray-800 h-screen flex items-center justify-center'>
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+        />
         <div className='flex flex-col items-center bg-white rounded-lg px-6 pt-7 w-[554px]'>
           <h1 className="text-4xl font-bold text-black mb-4">Topluluğumuza katıl</h1>
           <h4 className='text-gray-500 mb-6'>Etkinliğini ürünümüz ile güçlendir</h4>
-          <Input className="mb-6" type="text" placeholder="Ad" label="Ad *" />
-          <Input className="mb-6" type="text" placeholder="Soyad" label="Soyad *" />
-          <Input className="mb-6" type="email" placeholder="Email" label="Email *" />
-          <Input type="password" label="Password *" placeholder="Şifre" />
-          <Button className="my-6">Giriş Yap</Button>
-          <Link href="/login">Hesabın zaten var mı? <span className='text-green-500'>Giriş yap</span> </Link>
+          <Input className="mb-6" type="text" placeholder="Ad" label="Ad *" onChange={(e) => setName(e.target.value)} value={name} />
+          <Input className="mb-6" type="text" placeholder="Soyad" label="Soyad *" onChange={(e) => setSurname(e.target.value)} value={surname} />
+          <Input className="mb-6" type="email" placeholder="Email" label="Email *" onChange={(e) => setEmail(e.target.value)} value={email} />
+          <Input type="password" label="Password *" placeholder="Şifre" onChange={(e) => setPassword(e.target.value)} value={password} />
+          <Button className="my-6" onClick={handleClick}>Giriş Yap</Button>
+          <Link href="/login">Hesabın zaten var mı? <span className='text-green-500 mb-2 inline-block'>Giriş yap</span> </Link>
         </div>
 
       </main>
