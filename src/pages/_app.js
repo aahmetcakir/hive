@@ -11,10 +11,6 @@ export default function App({ Component, pageProps }) {
   if (isRemovedPath) {
     return <Component {...pageProps} />
   } else {
-    return (
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    )
+    return (<Layout><Component {...pageProps} /></Layout>)
   }
 }
