@@ -7,7 +7,5 @@ export const sendResetPasswordEmail = async (data) => {
             Accept: 'application/json'
         },
     });
-    const resBody = await res.json();
-    console.log(resBody);
-    return data;
+    return res;
 }
