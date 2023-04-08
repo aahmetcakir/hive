@@ -2,7 +2,44 @@ import Head from 'next/head'
 import Input from "@/components/Input"
 import Button from "@/components/Button"
 import Link from 'next/link'
+import { useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
+import { useRouter } from 'next/router'
+
 export default function Login() {
+  const router = useRouter()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const handleClick = async () => {
+    const payload = {
+      email: email,
+      password: password,
+    }
+    try {
+      toast.loading('Giriş yapılıyor...');
+      setLoading(true)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/hosts/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
+      const data = await res.json()
+      console.log(data);
+      toast.remove();
+      toast.success('Giriş başarılı')
+      router.push('/dashboard')
+    } catch (error) {
+      toast.remove();
+      toast.error('Giriş başarısız')
+      console.log(error);
+    }
+    finally {
+      setLoading(false)
+    }
+  }
   return (
     <>
       <Head>
@@ -12,12 +49,16 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className='bg-gray-800 h-screen flex items-center justify-center'>
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+        />
         <div className='flex flex-col items-center bg-white rounded-lg px-6 py-5 pt-12 w-[554px] h-[530px]'>
           <h1 className="text-4xl font-bold text-black mb-4">Hesabınıza giriş yapın</h1>
           <h4 className='text-gray-500 mb-6'>etkinliğinizi hemen oluşturun</h4>
-          <Input className="mb-6" type="email" label="Email" />
-          <Input type="password" label="Password" />
-          <Button className="my-6">Giriş Yap</Button>
+          <Input className="mb-6" type="email" label="Email" onChange={(e) => setEmail(e.target.value)} value={email} />
+          <Input type="password" label="Password" onChange={(e) => setPassword(e.target.value)} value={password} />
+          <Button className="my-6" onClick={handleClick}>Giriş Yap</Button>
           <Link href="/register">Henüz bir hesabın yok mu? <span className='text-green-500'>Kayıt ol</span> </Link>
         </div>
 
