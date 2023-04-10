@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Input from "@/components/Input"
 import Button from "@/components/Button"
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { useRouter } from 'next/router'
 
@@ -16,30 +16,32 @@ export default function Login() {
       email: email,
       password: password,
     }
-    try {
-      toast.loading('Giriş yapılıyor...');
-      setLoading(true)
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/hosts/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      })
-      const data = await res.json()
-      console.log(data);
+    toast.loading('Giriş yapılıyor...');
+    setLoading(true)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+    if (res.status === 200 || res.status === 201) {
       toast.remove();
       toast.success('Giriş başarılı')
-      router.push('/dashboard')
-    } catch (error) {
+      setTimeout(() => {
+        router.push('/dashboard')
+      }
+        , 500)
+    }
+    else {
       toast.remove();
       toast.error('Giriş başarısız')
-      console.log(error);
-    }
-    finally {
-      setLoading(false)
     }
   }
+
+
+
+
   return (
     <>
       <Head>

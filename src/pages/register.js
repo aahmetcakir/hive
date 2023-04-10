@@ -20,29 +20,29 @@ export default function Register() {
       email: email,
       password: password,
     }
-    try {
-      toast.loading('Giriş yapılıyor...');
-      setLoading(true)
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/hosts`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      })
-      const data = await res.json()
-      console.log(data);
+    toast.loading('Giriş yapılıyor...');
+    setLoading(true)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+    if (res.status === 200 || res.status === 201) {
       toast.remove();
       toast.success('Kayıt başarılı')
-      router.push('/login')
-    } catch (error) {
+      setTimeout(() => {
+        router.push('/login')
+      }
+        , 500)
+    }
+    else {
       toast.remove();
       toast.error('Kayıt başarısız')
-      console.log(error);
     }
-    finally {
-      setLoading(false)
-    }
+
+
   }
 
   return (
