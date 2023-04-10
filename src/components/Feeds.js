@@ -1,4 +1,6 @@
-import { ThumbUp, ThumbDown } from "./icons";
+import { ThumbUp } from "./icons";
+import { motion } from "framer-motion"
+
 export default function Feeds() {
     const feeds = [
         {
@@ -69,10 +71,14 @@ export default function Feeds() {
                     <div key={feed.id} className="border relative border-darkgray p-3 rounded-lg flex items-center justify-between mb-6">
                         <span className="text-gray-500 absolute bottom-9 bg-white px-1">{feed.name}</span>
                         <span className="text-gray-900 ">{feed.question}</span>
-                        <div className="flex items-center">
+                        {/* <div className="flex items-center">
+                        </div> */}
+                        <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                        >
                             <ThumbUp />
-                            <ThumbDown />
-                        </div>
+                        </ motion.button>
                     </div>
                 ))
             }
