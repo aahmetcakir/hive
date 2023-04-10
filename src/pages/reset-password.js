@@ -14,15 +14,16 @@ export default function Register() {
 
 
   const handleClick = async () => {
-    console.log('email is:', email);
     toast.loading('Mail gönderiliyor...');
     const res = await sendResetPasswordEmail({ email: email });
-    console.log(res);
     if (res.status === 200 || res.status === 201) {
       toast.remove();
       toast.success('Şifre resetleme maili gönderildi.')
       setEmail('')
-      router.push('/login')
+      setTimeout(() => {
+        router.push('/login')
+      }
+        , 500)
     }
     else {
       toast.remove();

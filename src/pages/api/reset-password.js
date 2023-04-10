@@ -6,7 +6,6 @@ const htmlTemplate = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional/
 const handler = async (req, res) => {
   if (req.method === "POST") {
     const data = req.body;
-    console.log(data);
     try {
       await transporter.sendMail({
         ...mailOptions,

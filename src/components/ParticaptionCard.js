@@ -66,15 +66,11 @@ export default function ParticaptionCard() {
     ]
     const [participant, setParticipant] = useState(participantsDefault);
     const addParticaption = () => {
-        console.log("added");
         setParticipant([{ id: new Date().getTime(), name: `anonymous1234${participant.length + 1}` }, ...participant])
-        console.log(participant);
     }
     const removeParticaption = () => {
-        console.log("removed");
         participant.pop()
         setParticipant([...participant])
-        console.log(participant);
     }
     const transition = { type: 'spring', stiffness: 500, damping: 50, mass: 1 }
     const animations = {

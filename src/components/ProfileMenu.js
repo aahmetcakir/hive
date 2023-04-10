@@ -70,7 +70,9 @@ export default function ProfileMenu({ name }) {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              Çıkış Yap
+              <Link href="/login">
+                Çıkış Yap
+              </Link>
             </ motion.button>
           </motion.div>
         </motion.div>
