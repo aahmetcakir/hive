@@ -15,7 +15,7 @@ export default function ProfileSettingsModal() {
     }
 
     return (
-        <Card classname={'absolute top-[calc(50%_-_130px)] left-[calc(50%_-_472px)] bg-[#F7F8F9] w-[944px] z-10 py-10 px-10 !block'}>
+        <Card classname={'absolute top-[calc(50%_-_300px)] left-[calc(50%_-_472px)] bg-[#F7F8F9] w-[944px] z-10 py-10 px-10 !block'}>
             <h1 className="text-2xl font-bold mb-10">Etkinlik Oluştur</h1>
             <Input
                 label="Etkinlik adı"

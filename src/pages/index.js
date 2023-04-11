@@ -3,7 +3,13 @@ import InformationCard from '@/components/InformationCard'
 import QrCard from '@/components/QrCard'
 import ParticaptionCard from '@/components/ParticaptionCard'
 import Feeds from '@/components/Feeds'
+import Modal from 'react-modal'
+import { useRouter } from 'next/router'
+import ProfileSettingsModal from '@/components/ProfileSettingsModal'
+import CreateEventModal from '@/components/CreateEventModal'
 export default function Home() {
+  const router = useRouter()
+  Modal.setAppElement("#__next");
   return (
     <>
       <Head>
@@ -23,6 +29,20 @@ export default function Home() {
         <div className="col-span-3">
           <ParticaptionCard />
         </div>
+        <Modal
+          isOpen={!!router.query.profile}
+          onRequestClose={() => router.push("/")}
+          className="bg-transparent z-10"
+        >
+          <ProfileSettingsModal />
+        </Modal>
+        <Modal
+          isOpen={!!router.query.event}
+          onRequestClose={() => router.push("/")}
+          className="bg-transparent z-10"
+        >
+          <CreateEventModal />
+        </Modal>
       </main >
     </>
   )

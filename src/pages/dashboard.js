@@ -1,7 +1,11 @@
 import Head from 'next/head'
 import Link from 'next/link'
-
+import Modal from 'react-modal'
+import { useRouter } from 'next/router'
+import ProfileSettingsModal from '@/components/ProfileSettingsModal'
+import CreateEventModal from '@/components/CreateEventModal'
 export default function Dashboard() {
+  const router = useRouter()
   return (
     <>
       <Head>
@@ -14,6 +18,20 @@ export default function Dashboard() {
         <h1 className="text-4xl font-bold">Gösterge paneli</h1>
         <Link href="/"></Link>
       </main>
+      <Modal
+        isOpen={!!router.query.profile}
+        onRequestClose={() => router.push("/dashboard")}
+        className="bg-transparent z-10"
+      >
+        <ProfileSettingsModal />
+      </Modal>
+      <Modal
+        isOpen={!!router.query.event}
+        onRequestClose={() => router.push("/dashboard")}
+        className="bg-transparent z-10"
+      >
+        <CreateEventModal />
+      </Modal>
     </>
   )
 }
