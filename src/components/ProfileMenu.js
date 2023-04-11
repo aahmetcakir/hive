@@ -52,44 +52,48 @@ export default function ProfileMenu({ name }) {
 
         >
           <motion.div className="flex flex-col items-center justify-between divide-y space-y-2">
-            <motion.button
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.8 }}
-            >
-              <Link href="/dashboard">
+            <Link href="/dashboard" className="block w-full text-center">
+              <motion.button
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.8 }}
+              >
                 Panel
-              </Link>
-            </ motion.button>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              </ motion.button>
+            </Link>
+            <Link
+              className="block w-full text-center"
+              href={`?event=open`}
+              as={`/create-event`}
             >
-              <Link
-                href={`?event=open`}
-                as={`/create-event`}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 Etkinlik Oluştur
-              </Link>
-            </ motion.button>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              </ motion.button>
+            </Link>
+            <Link
+              className="block w-full text-center"
+              href={`?profile=open`}
+              as={`/profile`}
             >
-              <Link
-                href={`?profile=open`}
-                as={`/profile`}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 Hesap Ayarları
-              </Link>
-            </ motion.button>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              </ motion.button>
+            </Link>
+            <Link href="/login"
+              className="block w-full text-center"
             >
-              <Link href="/login">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
                 Çıkış Yap
-              </Link>
-            </ motion.button>
+              </ motion.button>
+            </Link>
           </motion.div>
         </motion.div>
       </Card >
