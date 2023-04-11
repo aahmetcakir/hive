@@ -13,6 +13,9 @@ module.exports = {
       borderColor: {
         darkgray: "#B0B5BD",
       },
+      backgroundImage: {
+        'auth': "url('../../public/authLayoutBg.svg')",
+      }
     },
   },
   plugins: [],
