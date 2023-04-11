@@ -4,18 +4,41 @@ import Button from "@/components/Button"
 import Link from 'next/link'
 import { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
-import { sendResetPasswordEmail } from '@/lib/api'
+// import { sendResetPasswordEmail } from '@/lib/api'
 import { useRouter } from 'next/router'
 
 export default function Register() {
   const [email, setEmail] = useState('')
-  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
 
+  // const handleClick = async () => {
+  //   toast.loading('Mail gönderiliyor...');
+  //   const res = await sendResetPasswordEmail({ email: email });
+  //   if (res.status === 200 || res.status === 201) {
+  //     toast.remove();
+  //     toast.success('Şifre resetleme maili gönderildi.')
+  //     setEmail('')
+  //     setTimeout(() => {
+  //       router.push('/login')
+  //     }
+  //       , 500)
+  //   }
+  //   else {
+  //     toast.remove();
+  //     toast.error('Şifre resetleme sırasında bir problem oluştu. Lütfen daha sonra tekrar deneyin.')
+  //   }
+  // };
+
   const handleClick = async () => {
     toast.loading('Mail gönderiliyor...');
-    const res = await sendResetPasswordEmail({ email: email });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/reset-password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: email }),
+    })
     if (res.status === 200 || res.status === 201) {
       toast.remove();
       toast.success('Şifre resetleme maili gönderildi.')
@@ -29,33 +52,7 @@ export default function Register() {
       toast.remove();
       toast.error('Şifre resetleme sırasında bir problem oluştu. Lütfen daha sonra tekrar deneyin.')
     }
-  };
-
-  // const handleClick = async () => {
-  //   try {
-  //     toast.loading('Mail gönderiliyor...');
-  //     setLoading(true)
-  //     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/hosts/reset-password`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ email: email }),
-  //     })
-  //     const data = await res.json()
-  //     console.log(data);
-  //     toast.remove();
-  //     toast.success('Şifre resetleme maili gönderildi.')
-  //     router.push('/login')
-  //   } catch (err) {
-  //     toast.remove();
-  //     toast.error('Şifre resetleme sırasında bir problem oluştu. Lütfen daha sonra tekrar deneyin.')
-  //     console.log(err);
-  //   }
-  //   finally {
-  //     setLoading(false)
-  //   }
-  // }
+  }
   return (
     <>
       <Head>
@@ -64,19 +61,18 @@ export default function Register() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='bg-gray-800 h-screen flex items-center justify-center'>
+      <main>
         <Toaster
           position="top-center"
           reverseOrder={false}
         />
-        <div className='flex flex-col items-center bg-white rounded-lg px-6 pt-7 w-[554px]'>
-          <h1 className="text-4xl font-bold text-black mb-4">Şifreni sıfırla</h1>
-          <h4 className='text-gray-500 mb-6 text-center'>Merak etme şifreni sıfırlama konusunda sana yardımcı olacağız.</h4>
+        <div className='flex flex-col items-center rounded-lg px-6 pt-7 w-[554px]'>
+          <h1 className="text-4xl font-bold text-white mb-4">Şifreni sıfırla</h1>
+          <h4 className='text-gray-400 mb-6 text-center'>Merak etme şifreni sıfırlama konusunda sana yardımcı olacağız.</h4>
           <Input className="mb-6" type="email" placeholder="Email" label="Email *" onChange={(e) => setEmail(e.target.value)} value={email} />
           <Button className="my-6" onClick={handleClick}>Şifreyi sıfırla</Button>
-          <Link href="/login">Hesabın zaten var mı? <span className='text-green-500 mb-4 inline-block'>Giriş yap</span> </Link>
+          <Link href="/login" className='text-white'>Hesabın zaten var mı? <span className='text-green-500 mb-4 inline-block'>Giriş yap</span> </Link>
         </div>
-
       </main>
     </>
   )

@@ -53,20 +53,20 @@ export default function Register() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='bg-gray-800 h-screen flex items-center justify-center'>
+      <main>
         <Toaster
           position="top-center"
           reverseOrder={false}
         />
-        <div className='flex flex-col items-center bg-white rounded-lg px-6 pt-7 w-[554px]'>
-          <h1 className="text-4xl font-bold text-black mb-4">Topluluğumuza katıl</h1>
-          <h4 className='text-gray-500 mb-6'>Etkinliğini ürünümüz ile güçlendir</h4>
+        <div className='flex flex-col items-center  rounded-lg px-6 pt-7 w-[460px]'>
+          <h1 className="text-4xl font-bold text-white mb-4">Topluluğumuza katıl</h1>
+          <h4 className='text-gray-400 mb-6'>Etkinliğini ürünümüz ile güçlendir</h4>
           <Input className="mb-6" type="text" placeholder="Ad" label="Ad *" onChange={(e) => setName(e.target.value)} value={name} />
           <Input className="mb-6" type="text" placeholder="Soyad" label="Soyad *" onChange={(e) => setSurname(e.target.value)} value={surname} />
           <Input className="mb-6" type="email" placeholder="Email" label="Email *" onChange={(e) => setEmail(e.target.value)} value={email} />
           <Input type="password" label="Password *" placeholder="Şifre" onChange={(e) => setPassword(e.target.value)} value={password} />
           <Button className="my-6" onClick={handleClick}>Giriş Yap</Button>
-          <Link href="/login">Hesabın zaten var mı? <span className='text-green-500 mb-2 inline-block'>Giriş yap</span> </Link>
+          <Link href="/login" className='text-white'>Hesabın zaten var mı? <span className='text-green-500 mb-2 inline-block'>Giriş yap</span> </Link>
         </div>
 
       </main>
