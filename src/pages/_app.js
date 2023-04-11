@@ -12,7 +12,6 @@ export default function App({ Component, pageProps }) {
     return (<AuthLayout><Component {...pageProps} /></AuthLayout>)
   } else {
     return (<Layout>
-      <ProfileSettingsModal />
       <Component {...pageProps} />
     </Layout >
     )
