@@ -120,7 +120,7 @@ export default function ParticaptionCard() {
                         key={participant.id}>
                         <motion.li
                             {...animations}
-                            className="flex items-center justify-center mt-2 border-b pb-2"
+                            className="flex items-center justify-center mt-2 border-b pb-2 cursor-pointer"
                         >
                             <div className="w-[30px] h-[30px]">
                                 <Avatar size={30} />
