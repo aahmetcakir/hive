@@ -14,7 +14,7 @@ module.exports = {
         darkgray: "#B0B5BD",
       },
       backgroundImage: {
-        'auth': "url('../../public/authLayoutBg.svg')",
+        'auth': "url('/img/authLayoutBg.svg')",
       }
     },
   },
