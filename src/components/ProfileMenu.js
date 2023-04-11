@@ -7,6 +7,7 @@ export default function ProfileMenu({ name }) {
   const ref = useRef();
   const parentRef = useRef();
   const [isOpen, setIsOpen] = useState(false);
+  const [profileModal, setProfileModal] = useState(false);
 
   // Hook
   function useOnClickOutside(ref, handler, parentRef) {
@@ -63,6 +64,7 @@ export default function ProfileMenu({ name }) {
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+              onClick={() => setProfileModal(!profileModal)}
             >
               Hesap Ayarları
             </ motion.button>
