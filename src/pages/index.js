@@ -7,6 +7,9 @@ import Modal from 'react-modal'
 import { useRouter } from 'next/router'
 import ProfileSettingsModal from '@/components/ProfileSettingsModal'
 import CreateEventModal from '@/components/CreateEventModal'
+import toast, { Toaster } from 'react-hot-toast'
+
+
 export default function Home() {
   const router = useRouter()
   Modal.setAppElement("#__next");
@@ -43,6 +46,10 @@ export default function Home() {
         >
           <CreateEventModal />
         </Modal>
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+        />
       </main >
     </>
   )

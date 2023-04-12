@@ -4,6 +4,8 @@ import Modal from 'react-modal'
 import { useRouter } from 'next/router'
 import ProfileSettingsModal from '@/components/ProfileSettingsModal'
 import CreateEventModal from '@/components/CreateEventModal'
+import toast, { Toaster } from 'react-hot-toast'
+
 export default function Dashboard() {
   const router = useRouter()
   return (
@@ -16,7 +18,11 @@ export default function Dashboard() {
       </Head>
       <main>
         <h1 className="text-4xl font-bold">Gösterge paneli</h1>
-        <Link href="/"></Link>
+        <Link href="/">test</Link>
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+        />
       </main>
       <Modal
         isOpen={!!router.query.profile}
