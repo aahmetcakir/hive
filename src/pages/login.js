@@ -5,40 +5,48 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { useRouter } from 'next/router'
+import { signIn } from "next-auth/react"
 
 export default function Login() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  // const handleClick = async () => {
+  //   const payload = {
+  //     email: email,
+  //     password: password,
+  //   }
+  //   toast.loading('Giriş yapılıyor...');
+  //   setLoading(true)
+  //   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(payload),
+  //   })
+  //   const data = await res.json()
+  //   console.log(data);
+  //   if (res.status === 200 || res.status === 201) {
+  //     toast.remove();
+  //     toast.success('Giriş başarılı')
+  //     setTimeout(() => {
+  //       router.push('/dashboard')
+  //     }
+  //       , 500)
+  //   }
+  //   else {
+  //     toast.remove();
+  //     toast.error('Giriş başarısız')
+  //   }
+  // }
   const handleClick = async () => {
-    const payload = {
+    const res = await signIn("credentials", {
       email: email,
       password: password,
-    }
-    toast.loading('Giriş yapılıyor...');
-    setLoading(true)
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
+      callbackUrl: '/dashboard'
     })
-    const data = await res.json()
-    console.log(data);
-    if (res.status === 200 || res.status === 201) {
-      toast.remove();
-      toast.success('Giriş başarılı')
-      setTimeout(() => {
-        router.push('/dashboard')
-      }
-        , 500)
-    }
-    else {
-      toast.remove();
-      toast.error('Giriş başarısız')
-    }
   }
 
 
@@ -53,10 +61,6 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-        />
         <div className='flex flex-col items-center bg-transparent rounded-lg px-6 py-5 pt-12 w-[460px]'>
           <h1 className="text-4xl font-bold text-white mb-4">Hesabınıza giriş yapın</h1>
           <h4 className='text-gray-400 mb-6'>etkinliğinizi hemen oluşturun</h4>
@@ -68,7 +72,6 @@ export default function Login() {
           <Button className="my-6" onClick={handleClick}>Giriş Yap</Button>
           <Link href="/register" className='text-white'>Henüz bir hesabın yok mu? <span className='text-green-500'>Kayıt ol</span> </Link>
         </div>
-
       </main>
     </>
   )

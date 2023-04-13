@@ -46,10 +46,6 @@ export default function Home() {
         >
           <CreateEventModal />
         </Modal>
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-        />
       </main >
     </>
   )
