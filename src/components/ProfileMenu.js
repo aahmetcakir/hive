@@ -3,11 +3,14 @@ import Card from "./Card";
 import { motion } from "framer-motion"
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react"
+
 export default function ProfileMenu({ name }) {
   const ref = useRef();
   const parentRef = useRef();
   const [isOpen, setIsOpen] = useState(false);
-
+  const { data: session } = useSession()
+  console.log(session);
   // Hook
   function useOnClickOutside(ref, handler, parentRef) {
     useEffect(
@@ -36,15 +39,30 @@ export default function ProfileMenu({ name }) {
     closed: { opacity: 0, y: "-20%", x: "-10%", transition: { duration: 0.1 } },
   }
   return (
-    <>
-      <Card onClick={() => setIsOpen(!isOpen)} classname="flex flex-col shadow-sm hover:bg-gray-50 cursor-pointer relative z-10">
-        <div ref={parentRef} className="flex items-center justify-center">
-          <span className="font-bold">{name}</span>
-          <div className="w-[38px] pb-2">
-            <Avatar size={38} />
-          </div>
-        </div>
-        <motion.div
+    <Card onClick={() => setIsOpen(!isOpen)} classname="flex flex-col shadow-sm hover:bg-gray-50 cursor-pointer relative z-10">
+      <div ref={parentRef} className="flex items-center justify-center">
+        {
+          session?.user.name ?
+            <div className="flex items-center justify-center">
+              <span className="font-bold"
+              >
+                {session.user.name} {" "}
+                {session.user.surname}
+              </span>
+              <div className="w-[38px] pb-2">
+                <Avatar size={38} />
+              </div>
+            </div>
+            :
+            <span className="font-bold"
+              onClick={() => signIn()}
+            >
+              Giriş Yap
+            </span>
+        }
+      </div>
+      {
+        session?.user && <motion.div
           ref={ref}
           animate={isOpen ? "open" : "closed"}
           variants={variants}
@@ -84,21 +102,23 @@ export default function ProfileMenu({ name }) {
                 Hesap Ayarları
               </ motion.button>
             </Link>
-            <Link href="/login"
-              className="block w-full text-center"
+            {/* <Link href="/login"
+          className="block w-full text-center"
+        > */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => signOut({
+                callbackUrl: "/login"
+              })}
             >
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                Çıkış Yap
-              </ motion.button>
-            </Link>
+              Çıkış Yap
+            </ motion.button>
+            {/* </Link> */}
           </motion.div>
         </motion.div>
-      </Card >
-
-    </>
+      }
+    </Card >
 
   );
 }
