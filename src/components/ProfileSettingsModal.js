@@ -1,8 +1,8 @@
 import Button from "./Button";
 import Card from "./Card";
 import Input from "./Input";
-import { useState, useEffect } from "react";
-import toast, { Toaster } from 'react-hot-toast'
+import { useState } from "react";
+import toast from 'react-hot-toast'
 import { useSession } from "next-auth/react";
 
 export default function ProfileSettingsModal() {
@@ -45,44 +45,17 @@ export default function ProfileSettingsModal() {
             toast.success('Bilgiler güncellendi.')
             setName(user.firstName)
             setSurname(user.lastName)
-            // setTimeout(() => {
-            //     router.push('/login')
-            // }
-            //     , 500)
         }
         else {
             toast.remove();
             toast.error('Bilgiler güncellenirken bir problem oluştu. Lütfen daha sonra tekrar deneyin.')
         }
     }
-    // useEffect(() => {
-    //     const visibilityHandler = () => document.visibilityState === "visible" && update()
-    //     window.addEventListener("visibilitychange", visibilityHandler, false)
-    //     return () => window.removeEventListener("visibilitychange", visibilityHandler, false)
-    // }, [update])
 
     return (
         <>
-            <div><Toaster
-                position="top-center"
-                reverseOrder={false}
-            /></div>
-
             <Card classname={'absolute top-[calc(50%_-_300px)] left-[calc(50%_-_472px)] bg-[#F7F8F9] w-[944px] z-10 !p-10 !block'}>
                 <h1 className="text-2xl font-bold mb-10">Profil Ayarları</h1>
-                {
-                    JSON.stringify(session.user.name)
-                }
-                {/* <div>
-                <Input
-                    label="Profil fotoğrafı"
-                    placeholder="Lütfen profil fotoğrafınızı seçiniz"
-                    className="mb-5 cursor-pointer"
-                    labelColor="black"
-                    type="file"
-                >
-                </Input>
-            </div> */}
                 <div>
                     <Input
                         label="Ad"

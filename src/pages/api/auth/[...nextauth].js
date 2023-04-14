@@ -1,5 +1,7 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import toast from 'react-hot-toast'
+
 export const authOptions = {
     providers: [
         CredentialsProvider({
@@ -16,6 +18,7 @@ export const authOptions = {
                 })
                 const user = await res.json()
                 if (res.status === 200 && user) {
+                    toast.success('Giriş başarılı')
                     return {
                         id: user._id,
                         name: user.firstName,

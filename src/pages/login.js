@@ -3,7 +3,6 @@ import Input from "@/components/Input"
 import Button from "@/components/Button"
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import toast, { Toaster } from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import { signIn } from "next-auth/react"
 
@@ -42,7 +41,7 @@ export default function Login() {
   //   }
   // }
   const handleClick = async () => {
-    const res = await signIn("credentials", {
+    await signIn("credentials", {
       email: email,
       password: password,
       callbackUrl: '/dashboard'

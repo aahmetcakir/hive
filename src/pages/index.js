@@ -7,7 +7,6 @@ import Modal from 'react-modal'
 import { useRouter } from 'next/router'
 import ProfileSettingsModal from '@/components/ProfileSettingsModal'
 import CreateEventModal from '@/components/CreateEventModal'
-import toast, { Toaster } from 'react-hot-toast'
 
 
 export default function Home() {

@@ -3,6 +3,8 @@ import AuthLayout from '@/components/AuthLayout'
 import '@/styles/globals.css'
 import { useRouter } from 'next/router'
 import { SessionProvider } from "next-auth/react"
+import { Toaster } from 'react-hot-toast'
+
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter()
 
@@ -13,6 +15,9 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
     return (
       <SessionProvider session={session}>
         <AuthLayout>
+          <div>
+            <Toaster />
+          </div>
           <Component {...pageProps} />
         </AuthLayout>
       </SessionProvider>
@@ -21,6 +26,9 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
     return (
       <SessionProvider session={session}>
         <Layout>
+          <div>
+            <Toaster />
+          </div>
           <Component {...pageProps} />
         </Layout >
       </SessionProvider>

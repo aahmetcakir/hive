@@ -3,8 +3,9 @@ import Input from "@/components/Input"
 import Button from "@/components/Button"
 import Link from 'next/link'
 import { useState } from 'react'
-import toast, { Toaster } from 'react-hot-toast'
 import { useRouter } from 'next/router'
+import toast from 'react-hot-toast'
+
 export default function Register() {
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -54,10 +55,6 @@ export default function Register() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-        />
         <div className='flex flex-col items-center  rounded-lg px-6 pt-7 w-[460px]'>
           <h1 className="text-4xl font-bold text-white mb-4">Topluluğumuza katıl</h1>
           <h4 className='text-gray-400 mb-6'>Etkinliğini ürünümüz ile güçlendir</h4>

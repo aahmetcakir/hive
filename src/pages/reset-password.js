@@ -3,7 +3,7 @@ import Input from "@/components/Input"
 import Button from "@/components/Button"
 import Link from 'next/link'
 import { useState } from 'react'
-import toast, { Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 // import { sendResetPasswordEmail } from '@/lib/api'
 import { useRouter } from 'next/router'
 
@@ -62,10 +62,6 @@ export default function Register() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-        />
         <div className='flex flex-col items-center rounded-lg px-6 pt-7 w-[554px]'>
           <h1 className="text-4xl font-bold text-white mb-4">Şifreni sıfırla</h1>
           <h4 className='text-gray-400 mb-6 text-center'>Merak etme şifreni sıfırlama konusunda sana yardımcı olacağız.</h4>
