@@ -2,16 +2,46 @@ import Button from "./Button";
 import Card from "./Card";
 import Input from "./Input";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 export default function ProfileSettingsModal() {
     const [eventName, setEventName] = useState("");
     const [description, setDescription] = useState("");
     const [course, setCourse] = useState("");
-    const [email, setEmail] = useState("");
+    const { data: session } = useSession();
 
-
-    const handleSubmit = () => {
-        console.log(eventName, description, course, email);
+    const handleSubmit = async () => {
+        toast.loading('Etkinlik oluşturuluyor...');
+        const event = {
+            eventName: eventName,
+            eventDescription: description,
+            lessonName: course,
+        };
+        console.log(event);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${session.user.tokens.accessToken}`
+            },
+            body: JSON.stringify(event),
+        })
+        if (res.status === 200 || res.status === 201) {
+            const event = await res.json()
+            toast.remove();
+            toast.success('Etkinlik oluşturuldu.')
+            console.log(event);
+            setEventName("");
+            setDescription("");
+            setCourse("");
+        
+        }
+        else {
+            const err = await res.json();
+            toast.remove();
+            toast.error(err.error || 'Etkinlik oluşturulurken bir problem oluştu. Lütfen daha sonra tekrar deneyin.')
+        }
     }
 
     return (
@@ -40,14 +70,6 @@ export default function ProfileSettingsModal() {
                 labelColor="black"
                 onChange={(e) => setCourse(e.target.value)}
                 value={course}
-            ></Input>
-            <Input
-                label="Email adresi"
-                placeholder="Email adresinizi giriniz.."
-                className="mb-12"
-                labelColor="black"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
             ></Input>
             <Button onClick={handleSubmit}>
                 Etkinliği oluştur
