@@ -18,7 +18,6 @@ export default function ProfileSettingsModal() {
             eventDescription: description,
             lessonName: course,
         };
-        console.log(event);
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/`, {
             method: 'POST',
             headers: {
@@ -31,11 +30,10 @@ export default function ProfileSettingsModal() {
             const event = await res.json()
             toast.remove();
             toast.success('Etkinlik oluşturuldu.')
-            console.log(event);
             setEventName("");
             setDescription("");
             setCourse("");
-        
+
         }
         else {
             const err = await res.json();

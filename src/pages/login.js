@@ -18,7 +18,6 @@ export default function Login() {
       password: password,
       redirect: false,
     }).then((res) => {
-      console.log(res);
       if (res.ok) {
         router.push('/dashboard')
         toast.dismiss()

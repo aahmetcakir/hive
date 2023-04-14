@@ -4,12 +4,14 @@ import { motion } from "framer-motion"
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react"
-
+import { useRouter } from "next/router"
 export default function ProfileMenu() {
   const ref = useRef();
   const parentRef = useRef();
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
   const { data: session } = useSession()
+  const eventCode = router.query.id
   // Hook
   function useOnClickOutside(ref, handler, parentRef) {
     useEffect(
@@ -80,7 +82,8 @@ export default function ProfileMenu() {
             <Link
               className="block w-full text-center"
               href={`?event=open`}
-              as={`/create-event`}
+              as={`/events/${eventCode}/`}
+
             >
               <motion.button
                 whileHover={{ scale: 1.1 }}
@@ -92,7 +95,7 @@ export default function ProfileMenu() {
             <Link
               className="block w-full text-center"
               href={`?profile=open`}
-              as={`/profile`}
+              as={`/events/${eventCode}/`}
             >
               <motion.button
                 whileHover={{ scale: 1.1 }}
@@ -104,7 +107,7 @@ export default function ProfileMenu() {
             <Link
               className="block w-full text-center"
               href={`?password=open`}
-              as={`/profile`}
+              as={`/events/${eventCode}/`}
             >
               <motion.button
                 whileHover={{ scale: 1.1 }}
@@ -116,7 +119,8 @@ export default function ProfileMenu() {
             <Link
               className="block w-full text-center"
               href={`?account=open`}
-              as={`/profile`}
+              as={`/events/${eventCode}/`}
+
             >
               <motion.button
                 whileHover={{ scale: 1.1 }}

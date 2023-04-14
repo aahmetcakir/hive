@@ -8,7 +8,7 @@ import { Toaster } from 'react-hot-toast'
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter()
 
-  const removedPathFromLayout = ['/login', '/register', '/reset-password']
+  const removedPathFromLayout = ['/login', '/register', '/reset-password', '/']
   const isRemovedPath = removedPathFromLayout.includes(router.pathname)
 
   if (isRemovedPath) {
