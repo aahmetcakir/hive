@@ -4,6 +4,8 @@ import Modal from 'react-modal'
 import { useRouter } from 'next/router'
 import ProfileSettingsModal from '@/components/ProfileSettingsModal'
 import CreateEventModal from '@/components/CreateEventModal'
+import PasswordChangeModal from '@/components/PasswordChangeModal'
+import DeleteAccount from '@/components/DeleteAccount'
 
 export default function Dashboard() {
   const router = useRouter()
@@ -32,6 +34,20 @@ export default function Dashboard() {
         className="bg-transparent z-10"
       >
         <CreateEventModal />
+      </Modal>
+      <Modal
+        isOpen={!!router.query.password}
+        onRequestClose={() => router.push("/dashboard")}
+        className="bg-transparent z-10"
+      >
+        <PasswordChangeModal />
+      </Modal>
+      <Modal
+        isOpen={!!router.query.account}
+        onRequestClose={() => router.push("/dashboard")}
+        className="bg-transparent z-10"
+      >
+        <DeleteAccount />
       </Modal>
     </>
   )
