@@ -2,54 +2,34 @@ import Head from 'next/head'
 import Input from "@/components/Input"
 import Button from "@/components/Button"
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { signIn } from "next-auth/react"
-
+import toast from 'react-hot-toast'
 export default function Login() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  // const handleClick = async () => {
-  //   const payload = {
-  //     email: email,
-  //     password: password,
-  //   }
-  //   toast.loading('Giriş yapılıyor...');
-  //   setLoading(true)
-  //   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/login`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(payload),
-  //   })
-  //   const data = await res.json()
-  //   console.log(data);
-  //   if (res.status === 200 || res.status === 201) {
-  //     toast.remove();
-  //     toast.success('Giriş başarılı')
-  //     setTimeout(() => {
-  //       router.push('/dashboard')
-  //     }
-  //       , 500)
-  //   }
-  //   else {
-  //     toast.remove();
-  //     toast.error('Giriş başarısız')
-  //   }
-  // }
+
   const handleClick = async () => {
+    toast.loading('Giriş yapılıyor...')
     await signIn("credentials", {
       email: email,
       password: password,
-      callbackUrl: '/dashboard'
+      redirect: false,
+    }).then((res) => {
+      console.log(res);
+      if (res.ok) {
+        router.push('/dashboard')
+        toast.dismiss()
+        toast.success("Giriş başarılı")
+      }
+      else {
+        toast.dismiss()
+        toast.error("Giriş başarısız")
+      }
     })
   }
-
-
-
 
   return (
     <>
