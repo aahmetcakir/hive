@@ -49,8 +49,9 @@ export default function Register() {
         , 500)
     }
     else {
+      const err = await res.json()
       toast.remove();
-      toast.error('Şifre resetleme sırasında bir problem oluştu. Lütfen daha sonra tekrar deneyin.')
+      toast.error(err.error || 'Şifre resetleme sırasında bir problem oluştu. Lütfen daha sonra tekrar deneyin.')
     }
   }
   return (

@@ -39,8 +39,9 @@ export default function Register() {
         , 500)
     }
     else {
+      const err = await res.json()
       toast.remove();
-      toast.error('Kayıt başarısız')
+      toast.error(err.error || 'Bir hata oluştu.')
     }
 
 
