@@ -6,7 +6,7 @@ export default function Header({ classname }) {
       <Link href="/">
         <img className="cursor-pointer" src="Logo.svg" />
       </Link>
-      <ProfileMenu name="Ahmet Çakır" />
+      <ProfileMenu />
     </header>
   );
 }

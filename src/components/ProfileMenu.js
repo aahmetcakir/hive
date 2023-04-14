@@ -5,12 +5,11 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react"
 
-export default function ProfileMenu({ name }) {
+export default function ProfileMenu() {
   const ref = useRef();
   const parentRef = useRef();
   const [isOpen, setIsOpen] = useState(false);
   const { data: session } = useSession()
-  console.log(session);
   // Hook
   function useOnClickOutside(ref, handler, parentRef) {
     useEffect(
