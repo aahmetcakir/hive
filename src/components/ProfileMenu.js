@@ -65,10 +65,10 @@ export default function ProfileMenu() {
           ref={ref}
           animate={isOpen ? "open" : "closed"}
           variants={variants}
-          className={`absolute top-14 w-40 bg-white rounded-md shadow-md p-2 z-10 ${isOpen ? "block" : "hidden"}`}
+          className={`absolute top-16 w-40 bg-white rounded-md shadow-md p-2 z-10 ${isOpen ? "block" : "hidden"}`}
 
         >
-          <motion.div className="flex flex-col items-center justify-between divide-y space-y-2">
+          <motion.div className="flex flex-col  divide-y my-2 space-y-2">
             <Link href="/dashboard" className="block w-full text-center">
               <motion.button
                 whileHover={{ scale: 1.2 }}
@@ -101,19 +101,41 @@ export default function ProfileMenu() {
                 Hesap Ayarları
               </ motion.button>
             </Link>
-            {/* <Link href="/login"
-          className="block w-full text-center"
-        > */}
+            <Link
+              className="block w-full text-center"
+              href={`?password=open`}
+              as={`/profile`}
+            >
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                Şifre Değiştir
+              </ motion.button>
+            </Link>
+            <Link
+              className="block w-full text-center"
+              href={`?account=open`}
+              as={`/profile`}
+            >
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="text-red-500"
+              >
+                Hesabı Sil
+              </ motion.button>
+            </Link>
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
+              className="block w-full text-center"
               onClick={() => signOut({
                 callbackUrl: "/login"
               })}
             >
               Çıkış Yap
             </ motion.button>
-            {/* </Link> */}
           </motion.div>
         </motion.div>
       }
