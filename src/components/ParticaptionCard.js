@@ -1,77 +1,9 @@
 import Card from "@/components/Card";
 import Avatar from "@/components/Avatar";
 import { motion } from "framer-motion"
-import Button from "./Button";
-import { useState } from "react";
 import { usePresence } from "framer-motion"
-export default function ParticaptionCard() {
+export default function ParticaptionCard({ eventData }) {
     const [isPresent, safeToRemove] = usePresence()
-    const participantsDefault = [
-        {
-            id: 1,
-            name: "anonymous123494",
-        },
-        {
-            id: 2,
-            name: "anonymous123494",
-        },
-        {
-            id: 3,
-            name: "anonymous123494",
-        },
-        {
-            id: 4,
-            name: "anonymous123494",
-        },
-        {
-            id: 5,
-            name: "anonymous123494",
-        },
-        {
-            id: 6,
-            name: "anonymous123494",
-        },
-        {
-            id: 7,
-            name: "anonymous123494",
-        },
-        {
-            id: 8,
-            name: "anonymous123494",
-        },
-        // {
-        //     id: 9,
-        //     name: "anonymous123494",
-        // },
-        // {
-        //     id: 10,
-        //     name: "anonymous123494",
-        // },
-        // {
-        //     id: 11,
-        //     name: "anonymous123494",
-        // },
-        // {
-        //     id: 12,
-        //     name: "anonymous123494",
-        // },
-        // {
-        //     id: 13,
-        //     name: "anonymous123494",
-        // },
-        // {
-        //     id: 14,
-        //     name: "anonymous123494",
-        // },
-    ]
-    const [participant, setParticipant] = useState(participantsDefault);
-    const addParticaption = () => {
-        setParticipant([{ id: new Date().getTime(), name: `anonymous1234${participant.length + 1}` }, ...participant])
-    }
-    const removeParticaption = () => {
-        participant.pop()
-        setParticipant([...participant])
-    }
     const transition = { type: 'spring', stiffness: 500, damping: 50, mass: 1 }
     const animations = {
         layout: true,
@@ -102,22 +34,14 @@ export default function ParticaptionCard() {
 
     return (
         <Card classname="max-w-[261px] flex flex-col items-center">
-            <div className="flex items-center justify-between w-full space-x-2 p-2">
-                <Button onClick={() => addParticaption()}>
-                    Ekle
-                </Button>
-                <Button onClick={() => removeParticaption()} className={'bg-red-500'}>
-                    Sil
-                </Button>
-            </div>
             <h1 className="font-bold mt-2 text-center mb-4">Katılımcılar</h1>
             {
-                participant.map((participant) => (
+                eventData.participants.map((participant) => (
                     <motion.ul
                         variants={container}
                         initial="hidden"
                         animate="show"
-                        key={participant.id}>
+                        key={participant}>
                         <motion.li
                             {...animations}
                             className="flex items-center justify-center mt-2 border-b pb-2 cursor-pointer"
@@ -125,7 +49,7 @@ export default function ParticaptionCard() {
                             <div className="w-[30px] h-[30px]">
                                 <Avatar size={30} />
                             </div>
-                            <span className="pt-1">{participant.name}</span>
+                            <span className="pt-1">{participant}</span>
                         </motion.li>
                     </motion.ul>
                 ))
