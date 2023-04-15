@@ -24,7 +24,7 @@ export default function Home() {
         toast.success(data.message || 'Odaya giriş yapıldı')
         setTimeout(() => {
           router.push(`/events/${data.participant.room}`)
-        }, 1000)
+        }, 300)
       }
       else {
         const err = await res.json()
