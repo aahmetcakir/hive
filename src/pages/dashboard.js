@@ -8,9 +8,20 @@ import PasswordChangeModal from '@/components/PasswordChangeModal'
 import DeleteAccount from '@/components/DeleteAccount'
 import Card from '@/components/Card'
 import { motion } from "framer-motion"
-
+import { useSession } from "next-auth/react"
 export default function Dashboard() {
   const router = useRouter()
+  const { status } = useSession()
+  if (status === "loading") {
+    return <p>Yükleniyor...</p>
+  }
+
+  if (status === "unauthenticated") {
+    return <p>
+      Önce giriş yapmalısınız.
+    </p>
+  }
+
   return (
     <>
       <Head>

@@ -10,7 +10,7 @@ export default function ProfileMenu() {
   const parentRef = useRef();
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const eventCode = router.query.id
   // Hook
   function useOnClickOutside(ref, handler, parentRef) {
@@ -40,7 +40,7 @@ export default function ProfileMenu() {
     closed: { opacity: 0, y: "-20%", x: "-10%", transition: { duration: 0.1 } },
   }
   return (
-    <Card onClick={() => setIsOpen(!isOpen)} classname="flex flex-col shadow-sm hover:bg-gray-50 cursor-pointer relative z-10">
+    <Card onClick={() => setIsOpen(!isOpen)} classname={session?.user ? "flex flex-col shadow-sm hover:bg-gray-50 cursor-pointer relative z-10" : "flex items-center justify-center"}>
       <div ref={parentRef} className="flex items-center justify-center">
         {
           session?.user.name ?
@@ -53,13 +53,14 @@ export default function ProfileMenu() {
               <div className="w-[38px] pb-2">
                 <Avatar size={38} />
               </div>
-            </div>
-            :
-            <span className="font-bold"
+            </div> :
+            <span className="font-bold cursor-pointer"
               onClick={() => signIn()}
             >
               Giriş Yap
             </span>
+
+
         }
       </div>
       {

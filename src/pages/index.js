@@ -45,7 +45,9 @@ export default function Home() {
         <h1 className="text-4xl font-bold text-white mb-4">Hıve - Etkinliğe girin</h1>
         <h4 className='text-gray-400 mb-6 text-center'>Hocanızdan aldığınız kodu aşağı giriniz</h4>
         <Input className="mb-6" type="email" onChange={(e) => setEventCode(e.target.value)} value={eventCode} />
-        <Button onClick={() => joinEvent()}>Go to event page</Button>
+        <Button onClick={() => joinEvent()}>
+          Etkinliğe katıl
+        </Button>
 
       </main >
     </>
