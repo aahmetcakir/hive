@@ -13,7 +13,7 @@ import DeleteAccount from '@/components/DeleteAccount'
 export default function Events({ eventData }) {
     Modal.setAppElement("#__next");
     const router = useRouter()
-
+    const eventCode = router.query.id
     if (!eventData) {
         return <div>Loading</div>
     }
@@ -83,6 +83,12 @@ export async function getServerSideProps(context) {
         },
     })
     const data = await res.json()
+    console.log(data);
+    if (data.error) {
+        return {
+            notFound: true,
+        }
+    }
     // Pass data to the page via props
     return { props: { eventData: data } }
 }
