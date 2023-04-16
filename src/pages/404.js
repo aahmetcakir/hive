@@ -19,7 +19,7 @@ export default function Custom404() {
             Anasayfaya Dön
           </Link>
         </Button>
-        <Button onClick={relaodPage} className={"bg-white text-black border"}>
+        <Button onClick={relaodPage} className={"bg-white !text-black border"}>
           Tekrar Dene
         </Button>
       </div>

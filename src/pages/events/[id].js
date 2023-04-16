@@ -83,7 +83,6 @@ export async function getServerSideProps(context) {
         },
     })
     const data = await res.json()
-    console.log(data);
     if (data.error) {
         return {
             notFound: true,
