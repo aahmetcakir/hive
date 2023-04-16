@@ -15,6 +15,7 @@ module.exports = {
       },
       backgroundImage: {
         'auth': "url('/img/authLayoutBg.svg')",
+        "error": "url('/img/errLayoutBg.svg')",
       }
     },
   },
