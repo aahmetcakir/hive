@@ -41,15 +41,17 @@ export default function ParticaptionCard({ eventData }) {
                         variants={container}
                         initial="hidden"
                         animate="show"
+                        className="w-full"
                         key={participant}>
+
                         <motion.li
                             {...animations}
-                            className="flex items-center justify-center mt-2 border-b pb-2 cursor-pointer"
+                            className="flex items-center mt-2 border-b pb-2 cursor-pointer"
                         >
                             <div className="w-[30px] h-[30px]">
                                 <Avatar size={30} />
                             </div>
-                            <span className="pt-1">{participant}</span>
+                            <span className="pt-1 w-full text-center">{participant}</span>
                         </motion.li>
                     </motion.ul>
                 ))
