@@ -1,7 +1,7 @@
 import Button from "./Button";
 import Card from "./Card";
 import toast from 'react-hot-toast'
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 export default function DeleteAccount() {
     const { data: session, update } = useSession();
@@ -25,7 +25,7 @@ export default function DeleteAccount() {
                     callbackUrl: "/login"
                 })
             }
-                , 1000)
+                , 200)
 
         }
         else {

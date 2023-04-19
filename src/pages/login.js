@@ -25,7 +25,15 @@ export default function Login() {
       }
       else {
         toast.dismiss()
-        toast.error("Giriş başarısız")
+        if (!email && !password) {
+          toast.error("E-posta ve şifrenizi giriniz.")
+        }
+        else if (!email) {
+          toast.error("E-posta adresinizi giriniz.")
+        }
+        else if (!password) {
+          toast.error("Şifrenizi giriniz.")
+        }
       }
     })
   }

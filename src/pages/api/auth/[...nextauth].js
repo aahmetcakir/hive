@@ -29,7 +29,10 @@ export const authOptions = {
                         rooms: user.rooms
                     }
                 }
-                return null
+                if (res.status !== 200) {
+                    const err = await res.json()
+                    return err.error
+                }
             }
         })
     ],

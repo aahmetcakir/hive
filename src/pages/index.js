@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Input from '@/components/Input'
@@ -41,14 +42,20 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className=''>
-        <h1 className="text-4xl font-bold text-white mb-4">Hıve - Etkinliğe girin</h1>
+      <main>
+        <h1 className="text-4xl font-bold text-white mb-4">Hive - Etkinliğe girin</h1>
         <h4 className='text-gray-400 mb-6 text-center'>Hocanızdan aldığınız kodu aşağı giriniz</h4>
-        <Input className="mb-6" type="email" onChange={(e) => setEventCode(e.target.value)} value={eventCode} />
+        <Input className="mb-6" type="text" placeholder={'Etkinlik kodunu giriniz'} onChange={(e) => setEventCode(e.target.value)} value={eventCode} />
         <Button onClick={() => joinEvent()}>
           Etkinliğe katıl
         </Button>
-
+        <Link
+          href="/login"
+          className=" text-sm font-medium mt-4 text-white border p-3 rounded block mx-auto w-40 text-center
+          hover:bg-green-600 transition duration-200 ease-in-out"
+        >
+          <span>Giriş yap</span>
+        </Link>
       </main >
     </>
   )

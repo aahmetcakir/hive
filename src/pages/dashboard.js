@@ -7,11 +7,12 @@ import CreateEventModal from '@/components/CreateEventModal'
 import PasswordChangeModal from '@/components/PasswordChangeModal'
 import DeleteAccount from '@/components/DeleteAccount'
 import Card from '@/components/Card'
-import { motion } from "framer-motion"
+// import { motion } from "framer-motion"
 import { useSession } from "next-auth/react"
+// import { useEffect } from 'react'
 export default function Dashboard() {
   const router = useRouter()
-  const { status } = useSession()
+  const { data: session, status } = useSession()
   if (status === "loading") {
     return <p>Yükleniyor...</p>
   }
@@ -21,6 +22,12 @@ export default function Dashboard() {
       Önce giriş yapmalısınız.
     </p>
   }
+  // useEffect(() => {
+  //   // http://hive-deployment.onrender.com/rooms/user/6439c94a096ba3e94d87bc31
+  //   fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/user/${session.user.id}`)
+  //     .then(res => res.json())
+  //     .then(data => { console.log(data) })
+  // }, [])
 
   return (
     <>
