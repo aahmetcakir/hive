@@ -35,26 +35,32 @@ export default function ParticaptionCard({ eventData }) {
     return (
         <Card classname="max-w-[261px] flex flex-col items-center">
             <h1 className="font-bold mt-2 text-center mb-4">Katılımcılar</h1>
-            {
-                eventData.participants.map((participant) => (
-                    <motion.ul
-                        variants={container}
-                        initial="hidden"
-                        animate="show"
-                        className="w-full"
-                        key={participant}>
 
-                        <motion.li
-                            {...animations}
-                            className="flex items-center mt-2 border-b pb-2 cursor-pointer"
-                        >
-                            <div className="w-[30px] h-[30px]">
-                                <Avatar size={30} />
-                            </div>
-                            <span className="pt-1 w-full text-center">{participant}</span>
-                        </motion.li>
-                    </motion.ul>
-                ))
+            {
+                eventData.participants.length > 0 ?
+                    eventData.participants.map((participant) => (
+                        <motion.ul
+                            variants={container}
+                            initial="hidden"
+                            animate="show"
+                            className="w-full"
+                            key={participant}>
+
+                            <motion.li
+                                {...animations}
+                                className="flex items-center mt-2 border-b pb-2 cursor-pointer"
+                            >
+                                <div className="w-[30px] h-[30px]">
+                                    <Avatar size={30} />
+                                </div>
+                                <span className="pt-1 w-full text-center">{participant}</span>
+                            </motion.li>
+                        </motion.ul>
+                    ))
+                    :
+                    <div className="flex items-center justify-center w-full mb-4 bg-yellow-100 rounded-lg border border-yellow-500">
+                        <span className="text-center text-yellow-500 text-sm">Henüz katılımcı yok</span>
+                    </div>
             }
         </Card>
     );

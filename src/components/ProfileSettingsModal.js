@@ -47,8 +47,9 @@ export default function ProfileSettingsModal() {
             setSurname(user.lastName)
         }
         else {
+            const err = await res.json();
             toast.remove();
-            toast.error('Bilgiler güncellenirken bir problem oluştu. Lütfen daha sonra tekrar deneyin.')
+            toast.error(err.error || 'Bilgiler güncellenirken bir problem oluştu. Lütfen daha sonra tekrar deneyin.')
         }
     }
 

@@ -4,12 +4,13 @@ import Input from "./Input";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useSession } from "next-auth/react";
-
+import { useRouter } from "next/router";
 export default function ProfileSettingsModal() {
     const [eventName, setEventName] = useState("");
     const [description, setDescription] = useState("");
     const [course, setCourse] = useState("");
     const { data: session } = useSession();
+    const router = useRouter();
 
     const handleSubmit = async () => {
         toast.loading('Etkinlik oluşturuluyor...');
@@ -33,6 +34,7 @@ export default function ProfileSettingsModal() {
             setEventName("");
             setDescription("");
             setCourse("");
+            router.push(`/events/${event._id}`)
 
         }
         else {

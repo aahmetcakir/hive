@@ -9,8 +9,15 @@ export default function Home() {
   const router = useRouter()
   const [eventCode, setEventCode] = useState('')
 
+
+
+
   const joinEvent = async () => {
     // https://hive-deployment.onrender.com/rooms/e6KW6zMOA
+    if (!eventCode) {
+      const defaultRoom = "rzGwLZJZJ"
+      setEventCode(defaultRoom)
+    }
     if (eventCode) {
       toast.loading('Odaya giriş yapılıyor...')
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/${eventCode}`, {
