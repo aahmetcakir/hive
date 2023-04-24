@@ -39,15 +39,15 @@ export default function Events({ eventData }) {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className='grid grid-cols-12 gap-x-8'>
-                <div className='col-span-3'>
+            <main className='grid grid-cols-12 sm:gap-x-8 gap-y-8 my-10 sm:my-0 sm:gap-y-0'>
+                <div className='col-span-12 mx-auto sm:col-span-3 sm:order-1'>
                     <InformationCard eventData={eventData} />
                     <QrCard eventCode={eventData.code} />
                 </div>
-                <div className="col-span-6">
+                <div className="col-span-12 sm:col-span-6 order-first sm:order-2">
                     <Feeds />
                 </div>
-                <div className="col-span-3">
+                <div className="sm:col-span-3 hidden sm:block sm:order-3">
                     <ParticaptionCard eventData={eventData} />
                 </div>
                 <Modal
