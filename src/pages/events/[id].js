@@ -9,28 +9,30 @@ import ProfileSettingsModal from '@/components/ProfileSettingsModal'
 import CreateEventModal from '@/components/CreateEventModal'
 import PasswordChangeModal from '@/components/PasswordChangeModal'
 import DeleteAccount from '@/components/DeleteAccount'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Events({ eventData }) {
     Modal.setAppElement("#__next");
     const router = useRouter()
     const [data, setData] = useState(eventData)
-    const eventCode = router.query.id
+    const eventCode = eventData?.code
     if (!eventData) {
         return <div>Loading</div>
     }
-    // const fetchParticipants = async () => {
-    //     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/user/${eventCode}`)
-    //     const data = await res.json()
-    //     setData(data)
-    //     console.log(data)
-    // }
-    // setInterval(
-    //     () => {
-    //         const interval = setInterval(fetchParticipants, 2000)
-    //         clearInterval(interval)
-    //     }
-    //     , 2000)
+    useEffect(() => {
+        const joinEvent = async () => {
+            // https://hive-deployment.onrender.com/rooms/e6KW6zMOA
+            if (eventCode) {
+                await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/${eventCode}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+            }
+        }
+        joinEvent()
+    }, [])
     return (
         <>
             <Head>

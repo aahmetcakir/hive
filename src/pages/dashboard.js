@@ -144,11 +144,6 @@ export default function Dashboard({ rooms }) {
   )
 }
 export async function getServerSideProps({ req }) {
-  // Fetch data from external API
-  // const accessToken = context.req.cookies["next-auth.session-token"];
-  // console.log("************");
-  // console.log(accessToken);
-  // console.log("************");
   const { user } = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET,
