@@ -29,12 +29,13 @@ export default function ProfileSettingsModal() {
         })
         if (res.status === 200 || res.status === 201) {
             const event = await res.json()
+            console.log(event[event.length - 1]);
             toast.remove();
             toast.success('Etkinlik oluşturuldu.')
             setEventName("");
             setDescription("");
             setCourse("");
-            router.push(`/events/${event._id}`)
+            router.push(`/events/${event[event.length - 1]._id}`)
 
         }
         else {
