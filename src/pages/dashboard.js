@@ -9,7 +9,8 @@ import DeleteAccount from '@/components/DeleteAccount'
 import Card from '@/components/Card'
 import QRCode from "react-qr-code";
 import { useSession } from "next-auth/react"
-export default function Dashboard() {
+import { getToken } from "next-auth/jwt"
+export default function Dashboard({ rooms }) {
   const router = useRouter()
   const { data: status } = useSession()
   if (status === "loading") {
@@ -21,33 +22,6 @@ export default function Dashboard() {
       Önce giriş yapmalısınız.
     </p>
   }
-  const userRooms = [
-    {
-      id: 1,
-      name: "Yazılım Geliştirme",
-      code: "e6KW6zMOA"
-    },
-    {
-      id: 2,
-      name: "Yazılım Geliştirme",
-      code: "e6KW6zMOA"
-    },
-    {
-      id: 3,
-      name: "Yazılım Geliştirme",
-      code: "e6KW6zMOA"
-    },
-    {
-      id: 4,
-      name: "Yazılım Geliştirme",
-      code: "e6KW6zMOA"
-    },
-    {
-      id: 5,
-      name: "Yazılım Geliştirme",
-      code: "e6KW6zMOA"
-    },
-  ]
 
   return (
     <>
@@ -114,21 +88,26 @@ export default function Dashboard() {
             <span className='text-[#C288F9] font-semibold sm:text-5xl text-3xl'>120</span>
             <span className='font-medium sm:text-xl text-md'>Oy</span>
           </Card>
-          <Card classname={"col-span-12 sm:h-[140px] flex flex-col sm:flex-row items-center justify-evenly sm:gap-x-4 gap-y-4 py-2"}>
+          <Card classname={"col-span-12 sm:h-[140px] flex flex-col sm:flex-row items-center  sm:gap-x-4 gap-y-4 py-2"}>
             {
-              userRooms.map((room) => (
-                <Card key={room.id} classname="flex flex-col w-32 h-32 hover:bg-gray-200 hover:cursor-pointer">
-                  <h6 className="text-sm font-bold divide-y-2">
-                    {room.code}
-                  </h6>
-                  <QRCode value={'https://hivecom.vercel.app/events/' + room.id} size={200} />
-                  <Link
-                    href={`/events/${room.id}`}
-                  >
-                    odaya git
-                  </Link>
-                </Card>
-              ))
+              rooms.length > 0 ?
+                rooms.map((room) => (
+                  <Card key={room._id} classname="flex flex-col w-32 h-32 hover:bg-gray-200 hover:cursor-pointer">
+                    <h6 className="text-sm font-bold divide-y-2">
+                      {room.code}
+                    </h6>
+                    <QRCode value={'https://hivecom.vercel.app/events/' + room._id} size={200} />
+                    <Link
+                      href={`/events/${room._id}`}
+                    >
+                      odaya git
+                    </Link>
+                  </Card>
+                ))
+                :
+                <span className="text-2xl font-bold text-center">
+                  Henüz bir oda oluşturmadınız.
+                </span>
             }
           </Card>
         </div>
@@ -164,22 +143,26 @@ export default function Dashboard() {
     </>
   )
 }
-// export async function getServerSideProps(context) {
-//   // Fetch data from external API
-//   const accessToken = context.req.cookies["next-auth.session-token"];
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/users`, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       "Authorization": `Bearer ${accessToken}`
-//     },
-//   })
-//   const data = await res.json()
-//   if (data.error) {
-//     return {
-//       notFound: true,
-//     }
-//   }
+export async function getServerSideProps({ req }) {
+  // Fetch data from external API
+  // const accessToken = context.req.cookies["next-auth.session-token"];
+  // console.log("************");
+  // console.log(accessToken);
+  // console.log("************");
+  const { user } = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+    encryption: true
+  })
+  const accessToken = user.tokens.accessToken;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/user/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${accessToken}`
+    },
+  })
+  const data = await res.json()
 
-//   return { props: { rooms: data } }
-// }
+  return { props: { rooms: data } }
+}

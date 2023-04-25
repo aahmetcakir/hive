@@ -85,13 +85,11 @@ export default function Events({ eventData }) {
 
 export async function getServerSideProps(context) {
     // Fetch data from external API
-    const accessToken = context.req.cookies["next-auth.session-token"];
     const eventCode = context.query.id
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/${eventCode}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            "Authorization": `Bearer ${accessToken}`
         },
     })
     const data = await res.json()
