@@ -11,7 +11,6 @@ export default function Register() {
   const [email, setEmail] = useState('')
   const router = useRouter()
 
-
   // const handleClick = async () => {
   //   toast.loading('Mail gönderiliyor...');
   //   const res = await sendResetPasswordEmail({ email: email });

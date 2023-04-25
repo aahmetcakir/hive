@@ -10,14 +10,13 @@ export default function ProfileMenu() {
   const parentRef = useRef();
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const eventCode = router.query.id
   // Hook
   function useOnClickOutside(ref, handler, parentRef) {
     useEffect(
       () => {
         const listener = (event) => {
-          // Do nothing if clicking ref's element or descendent elements
           if (!ref.current || ref.current.contains(event.target) || parentRef.current.contains(event.target)) {
             return;
           }

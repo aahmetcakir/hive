@@ -43,8 +43,6 @@ export default function Register() {
       toast.remove();
       toast.error(err.error || 'Bir hata oluştu.')
     }
-
-
   }
 
   return (
@@ -66,7 +64,6 @@ export default function Register() {
           <Button className="my-6" onClick={handleClick}>Giriş Yap</Button>
           <Link href="/login" className='text-white'>Hesabın zaten var mı? <span className='text-green-500 mb-2 inline-block'>Giriş yap</span> </Link>
         </div>
-
       </main>
     </>
   )

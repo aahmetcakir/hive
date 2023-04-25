@@ -9,9 +9,6 @@ export default function Home() {
   const router = useRouter()
   const [eventCode, setEventCode] = useState('')
 
-
-
-
   const joinEvent = async () => {
     // https://hive-deployment.onrender.com/rooms/e6KW6zMOA
     if (!eventCode) {

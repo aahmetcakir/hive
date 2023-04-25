@@ -1,8 +1,6 @@
 import Card from "@/components/Card";
 import Avatar from "@/components/Avatar";
-import { useSession } from "next-auth/react";
 export default function InformationCard({ eventData }) {
-    const { data: session } = useSession();
     return (
         <Card classname="max-w-[261px] h-[375px] flex flex-col items-center justify-center pb-12 mb-28 text-center">
             <div className="w-[90px] h-[90px]">

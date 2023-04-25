@@ -2,10 +2,8 @@ import Button from "./Button";
 import Card from "./Card";
 import toast from 'react-hot-toast'
 import { useSession, signOut } from "next-auth/react";
-import { useRouter } from "next/router";
 export default function DeleteAccount() {
-    const { data: session, update } = useSession();
-    const router = useRouter();
+    const { data: session } = useSession();
     const handleSubmit = async () => {
         toast.loading('Hesabınız siliniyor...');
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${session.user.id}`, {
@@ -19,7 +17,6 @@ export default function DeleteAccount() {
         if (res.status === 200 || res.status === 201) {
             toast.remove();
             toast.success('Hesabınız silindi.')
-            // update({ name: null, email: null, image: null, id: null, tokens: null, rooms: null })
             setTimeout(() => {
                 signOut({
                     callbackUrl: "/login"
