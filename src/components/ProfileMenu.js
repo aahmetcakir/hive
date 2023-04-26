@@ -39,12 +39,12 @@ export default function ProfileMenu() {
     closed: { opacity: 0, y: "-20%", x: "-10%", transition: { duration: 0.1 } },
   }
   return (
-    <Card onClick={() => setIsOpen(!isOpen)} classname={session?.user ? "flex flex-col shadow-sm hover:bg-gray-50 cursor-pointer relative z-10" : "flex items-center justify-center"}>
+    <Card onClick={() => setIsOpen(!isOpen)} classname={session?.user ? "flex items-center justify-center w-[120px]  sm:w-fit shadow-sm hover:bg-gray-50 cursor-pointer relative" : "flex items-center justify-center"}>
       <div ref={parentRef} className="flex items-center justify-center">
         {
           session?.user.name ?
             <div className="flex items-center justify-center">
-              <span className="font-bold"
+              <span className="font-medium sm:font-bold text-sm sm:text-base"
               >
                 {session.user.name} {" "}
                 {session.user.surname}

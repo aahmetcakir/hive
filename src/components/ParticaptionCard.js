@@ -33,7 +33,7 @@ export default function ParticaptionCard({ eventData }) {
     }
 
     return (
-        <Card classname="max-w-[261px] flex flex-col items-center">
+        <Card classname="max-w-[261px] flex flex-col items-center overflow-y-auto max-h-[800px]">
             <h1 className="font-bold mt-2 text-center mb-4">Katılımcılar</h1>
 
             {

@@ -88,7 +88,7 @@ export default function Dashboard({ rooms }) {
             <span className='text-[#C288F9] font-semibold sm:text-5xl text-3xl'>120</span>
             <span className='font-medium sm:text-xl text-md'>Oy</span>
           </Card>
-          <Card classname={"col-span-12 sm:h-[140px] flex flex-col sm:flex-row items-center  sm:gap-x-4 gap-y-4 py-2"}>
+          <Card classname={"col-span-12 sm:h-[180px] flex flex-col sm:flex-row items-center  sm:gap-x-4 gap-y-4 py-2 overflow-x-auto"}>
             {
               rooms.length > 0 ?
                 rooms.map((room) => (
@@ -111,7 +111,7 @@ export default function Dashboard({ rooms }) {
             }
           </Card>
         </div>
-      </main>
+      </main >
       <Modal
         isOpen={!!router.query.profile}
         onRequestClose={() => router.push("/dashboard")}
