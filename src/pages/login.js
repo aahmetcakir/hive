@@ -34,6 +34,9 @@ export default function Login() {
         else if (!password) {
           toast.error("Şifrenizi giriniz.")
         }
+        else {
+          toast.error("Girilen kullanıcı adı ya da şifre hatalı. Lütfen girdiğiniz bilgileri kontrol ederek tekrar deneyiniz.")
+        }
       }
     })
   }
