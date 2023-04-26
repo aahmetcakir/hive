@@ -115,28 +115,28 @@ export default function Dashboard({ rooms }) {
       <Modal
         isOpen={!!router.query.profile}
         onRequestClose={() => router.push("/dashboard")}
-        className="bg-transparent z-10"
+        className="bg-transparent z-20"
       >
         <ProfileSettingsModal />
       </Modal>
       <Modal
         isOpen={!!router.query.event}
         onRequestClose={() => router.push("/dashboard")}
-        className="bg-transparent z-10"
+        className="bg-transparent z-20"
       >
         <CreateEventModal />
       </Modal>
       <Modal
         isOpen={!!router.query.password}
         onRequestClose={() => router.push("/dashboard")}
-        className="bg-transparent z-10"
+        className="bg-transparent z-20"
       >
         <PasswordChangeModal />
       </Modal>
       <Modal
         isOpen={!!router.query.account}
         onRequestClose={() => router.push("/dashboard")}
-        className="bg-transparent z-10"
+        className="bg-transparent z-20"
       >
         <DeleteAccount />
       </Modal>

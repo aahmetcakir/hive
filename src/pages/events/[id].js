@@ -16,6 +16,7 @@ export default function Events({ eventData }) {
     const router = useRouter()
     const [data, setData] = useState(eventData)
     const eventCode = eventData?.code
+    const eventId = eventData?.id
     if (!eventData) {
         return <div>Loading</div>
     }
@@ -54,29 +55,29 @@ export default function Events({ eventData }) {
                 </div>
                 <Modal
                     isOpen={!!router.query.profile}
-                    onRequestClose={() => router.push(`/events/${eventCode}`)}
-                    className="bg-transparent z-10"
+                    onRequestClose={() => router.push(`/events/${eventId}`)}
+                    className="bg-transparent z-20"
                 >
                     <ProfileSettingsModal />
                 </Modal>
                 <Modal
                     isOpen={!!router.query.password}
-                    onRequestClose={() => router.push(`/events/${eventCode}`)}
-                    className="bg-transparent z-10"
+                    onRequestClose={() => router.push(`/events/${eventId}`)}
+                    className="bg-transparent z-20"
                 >
                     <PasswordChangeModal />
                 </Modal>
                 <Modal
                     isOpen={!!router.query.account}
-                    onRequestClose={() => router.push(`/events/${eventCode}`)}
-                    className="bg-transparent z-10"
+                    onRequestClose={() => router.push(`/events/${eventId}`)}
+                    className="bg-transparent z-20"
                 >
                     <DeleteAccount />
                 </Modal>
                 <Modal
                     isOpen={!!router.query.event}
-                    onRequestClose={() => router.push(`/events/${eventCode}`)}
-                    className="bg-transparent z-10"
+                    onRequestClose={() => router.push(`/events/${eventId}`)}
+                    className="bg-transparent z-20"
                 >
                     <CreateEventModal />
                 </Modal>

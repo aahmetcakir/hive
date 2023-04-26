@@ -29,7 +29,6 @@ export default function ProfileSettingsModal() {
         })
         if (res.status === 200 || res.status === 201) {
             const event = await res.json()
-            console.log(event[event.length - 1]);
             toast.remove();
             toast.success('Etkinlik oluşturuldu.')
             setEventName("");
@@ -41,7 +40,7 @@ export default function ProfileSettingsModal() {
         else {
             const err = await res.json();
             toast.remove();
-            toast.error(err.error || 'Etkinlik oluşturulurken bir problem oluştu. Lütfen daha sonra tekrar deneyin.')
+            toast.error(err.message || 'Etkinlik oluşturulurken bir problem oluştu. Lütfen daha sonra tekrar deneyin.')
         }
     }
 
