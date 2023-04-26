@@ -31,6 +31,7 @@ export default function Register() {
       body: JSON.stringify(payload),
     })
     if (res.status === 200 || res.status === 201) {
+      setLoading(false)
       toast.remove();
       toast.success('Kayıt başarılı')
       setTimeout(() => {
@@ -39,6 +40,7 @@ export default function Register() {
         , 500)
     }
     else {
+      setLoading(false)
       const err = await res.json()
       toast.remove();
       toast.error(err.error || 'Bir hata oluştu.')
@@ -62,7 +64,9 @@ export default function Register() {
           <Input className="mb-6" type="text" placeholder="Soyad" label="Soyad *" onChange={(e) => setSurname(e.target.value)} value={surname} />
           <Input className="mb-6" type="email" placeholder="Email" label="Email *" onChange={(e) => setEmail(e.target.value)} value={email} />
           <Input type="password" label="Password *" placeholder="Şifre" onChange={(e) => setPassword(e.target.value)} value={password} />
-          <Button className="my-6" onClick={handleClick}>Giriş Yap</Button>
+          <Button className="my-6" onClick={handleClick}>
+            {loading ? 'Yükleniyor...' : 'Kayıt Ol'}
+          </Button>
           <Link href="/login" className='text-white'>Hesabın zaten var mı? <span className='text-green-500 mb-2 inline-block'>Giriş yap</span> </Link>
         </div>
       </main>
