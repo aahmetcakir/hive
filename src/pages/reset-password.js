@@ -4,8 +4,9 @@ import Button from "@/components/Button"
 import Link from 'next/link'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-// import { sendResetPasswordEmail } from '@/lib/api'
 import { useRouter } from 'next/router'
+import { Logo } from '@/components/icons'
+// import { sendResetPasswordEmail } from '@/lib/api'
 
 export default function Register() {
   const [email, setEmail] = useState('')
@@ -63,9 +64,10 @@ export default function Register() {
       </Head>
       <main>
         <div className='flex flex-col items-center rounded-lg px-6 pt-7 w-[554px]'>
+          <Logo className={'mb-5'} />
           <h1 className="text-4xl font-bold text-white mb-4">Şifreni sıfırla</h1>
           <h4 className='text-gray-400 mb-6 text-center'>Merak etme şifreni sıfırlama konusunda sana yardımcı olacağız.</h4>
-          <Input className="mb-6" type="email" placeholder="Email" label="Email *" onChange={(e) => setEmail(e.target.value)} value={email} />
+          <Input type="email" placeholder="Email" label="Email *" onChange={(e) => setEmail(e.target.value)} value={email} />
           <Button className="my-6" onClick={handleClick}>Şifreyi sıfırla</Button>
           <Link href="/login" className='text-white'>Hesabın zaten var mı? <span className='text-green-500 mb-4 inline-block'>Giriş yap</span> </Link>
         </div>

@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { signIn } from "next-auth/react"
 import toast from 'react-hot-toast'
+import { Logo } from '@/components/icons'
 export default function Login() {
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -51,6 +52,7 @@ export default function Login() {
       </Head>
       <main>
         <div className='flex flex-col items-center bg-transparent rounded-lg px-6 py-5 pt-12 w-[460px]'>
+          <Logo className={'mb-5'} />
           <h1 className="text-4xl font-bold text-white mb-4">Hesabınıza giriş yapın</h1>
           <h4 className='text-gray-400 mb-6'>etkinliğinizi hemen oluşturun</h4>
           <Input className="mb-6" type="email" label="Email *" onChange={(e) => setEmail(e.target.value)} value={email} />

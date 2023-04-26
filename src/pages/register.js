@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
-
+import { Logo } from '@/components/icons'
 export default function Register() {
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -55,6 +55,7 @@ export default function Register() {
       </Head>
       <main>
         <div className='flex flex-col items-center  rounded-lg px-6 pt-7 w-[460px]'>
+          <Logo className={'mb-5'} />
           <h1 className="text-4xl font-bold text-white mb-4">Topluluğumuza katıl</h1>
           <h4 className='text-gray-400 mb-6'>Etkinliğini ürünümüz ile güçlendir</h4>
           <Input className="mb-6" type="text" placeholder="Ad" label="Ad *" onChange={(e) => setName(e.target.value)} value={name} />

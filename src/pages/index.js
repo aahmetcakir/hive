@@ -5,6 +5,7 @@ import { useState } from 'react'
 import Input from '@/components/Input'
 import Button from '@/components/Button'
 import toast from 'react-hot-toast'
+import { Logo } from '@/components/icons'
 export default function Home() {
   const router = useRouter()
   const [eventCode, setEventCode] = useState('')
@@ -47,7 +48,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1 className="text-4xl font-bold text-white mb-4">Hive - Etkinliğe girin</h1>
+        <Logo className={"mb-5"} />
+        <h1 className="text-4xl font-bold text-white mb-4 text-center">Etkinliğe katılın</h1>
         <h4 className='text-gray-400 mb-6 text-center'>Hocanızdan aldığınız kodu aşağı giriniz</h4>
         <Input className="mb-6" type="text" placeholder={'Etkinlik kodunu giriniz'} onChange={(e) => setEventCode(e.target.value)} value={eventCode} />
         <Button onClick={() => joinEvent()}>
