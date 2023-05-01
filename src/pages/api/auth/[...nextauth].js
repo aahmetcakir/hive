@@ -7,7 +7,7 @@ export const authOptions = {
             name: 'Credentials',
             credentials: {},
             async authorize(credentials, req) {
-                const res = await fetch("https://hive-deployment.onrender.com/users/login", {
+                const res = await fetch("https://api.hive.net.tr/users/login", {
                     method: 'POST',
                     body: JSON.stringify({
                         email: credentials.email,
