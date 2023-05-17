@@ -14,7 +14,8 @@ export default function Register() {
   const [surname, setSurname] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleClick = async () => {
+  const handleClick = async (e) => {
+    e.preventDefault()
     const payload = {
       firstName: name,
       lastName: surname,
@@ -60,14 +61,17 @@ export default function Register() {
           <Logo className={'mb-5'} />
           <h1 className="text-4xl font-bold text-white mb-4">Topluluğumuza katıl</h1>
           <h4 className='text-gray-400 mb-6'>Etkinliğini ürünümüz ile güçlendir</h4>
-          <Input className="mb-6" type="text" placeholder="Ad" label="Ad *" onChange={(e) => setName(e.target.value)} value={name} />
-          <Input className="mb-6" type="text" placeholder="Soyad" label="Soyad *" onChange={(e) => setSurname(e.target.value)} value={surname} />
-          <Input className="mb-6" type="email" placeholder="Email" label="Email *" onChange={(e) => setEmail(e.target.value)} value={email} />
-          <Input type="password" label="Password *" placeholder="Şifre" onChange={(e) => setPassword(e.target.value)} value={password} />
-          <Button className="my-6" onClick={handleClick}>
-            {loading ? 'Yükleniyor...' : 'Kayıt Ol'}
-          </Button>
-          <Link href="/login" className='text-white'>Hesabın zaten var mı? <span className='text-green-500 mb-2 inline-block'>Giriş yap</span> </Link>
+          <form onSubmit={(e) => handleClick(e)}>
+            <Input className="mb-6" type="text" placeholder="Ad" label="Ad *" onChange={(e) => setName(e.target.value)} value={name} />
+            <Input className="mb-6" type="text" placeholder="Soyad" label="Soyad *" onChange={(e) => setSurname(e.target.value)} value={surname} />
+            <Input className="mb-6" type="email" placeholder="Email" label="Email *" onChange={(e) => setEmail(e.target.value)} value={email} />
+            <Input type="password" label="Password *" placeholder="Şifre" onChange={(e) => setPassword(e.target.value)} value={password} />
+            <Button className="my-6" onClick={handleClick}>
+              {loading ? 'Yükleniyor...' : 'Kayıt Ol'}
+            </Button>
+            <Link href="/login" className='text-white'>Hesabın zaten var mı? <span className='text-green-500 mb-2 inline-block'>Giriş yap</span> </Link>
+          </form>
+
         </div>
       </main>
     </>

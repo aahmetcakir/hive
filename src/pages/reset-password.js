@@ -6,31 +6,13 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import { Logo } from '@/components/icons'
-// import { sendResetPasswordEmail } from '@/lib/api'
 
 export default function Register() {
   const [email, setEmail] = useState('')
   const router = useRouter()
 
-  // const handleClick = async () => {
-  //   toast.loading('Mail gönderiliyor...');
-  //   const res = await sendResetPasswordEmail({ email: email });
-  //   if (res.status === 200 || res.status === 201) {
-  //     toast.remove();
-  //     toast.success('Şifre resetleme maili gönderildi.')
-  //     setEmail('')
-  //     setTimeout(() => {
-  //       router.push('/login')
-  //     }
-  //       , 500)
-  //   }
-  //   else {
-  //     toast.remove();
-  //     toast.error('Şifre resetleme sırasında bir problem oluştu. Lütfen daha sonra tekrar deneyin.')
-  //   }
-  // };
-
-  const handleClick = async () => {
+  const handleClick = async (e) => {
+    e.preventDefault()
     toast.loading('Mail gönderiliyor...');
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/reset-password`, {
       method: 'POST',
@@ -67,9 +49,11 @@ export default function Register() {
           <Logo className={'mb-5'} />
           <h1 className="text-4xl font-bold text-white mb-4">Şifreni sıfırla</h1>
           <h4 className='text-gray-400 mb-6 text-center'>Merak etme şifreni sıfırlama konusunda sana yardımcı olacağız.</h4>
-          <Input type="email" placeholder="Email" label="Email *" onChange={(e) => setEmail(e.target.value)} value={email} />
-          <Button className="my-6" onClick={handleClick}>Şifreyi sıfırla</Button>
-          <Link href="/login" className='text-white'>Hesabın zaten var mı? <span className='text-green-500 mb-4 inline-block'>Giriş yap</span> </Link>
+          <form onSubmit={(e) => handleClick(e)}>
+            <Input type="email" placeholder="Email" label="Email *" onChange={(e) => setEmail(e.target.value)} value={email} />
+            <Button className="my-6" onClick={handleClick}>Şifreyi sıfırla</Button>
+            <Link href="/login" className='text-white'>Hesabın zaten var mı? <span className='text-green-500 mb-4 inline-block'>Giriş yap</span> </Link>
+          </form>
         </div>
       </main>
     </>

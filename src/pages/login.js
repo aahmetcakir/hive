@@ -12,7 +12,8 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleClick = async () => {
+  const handleClick = async (e) => {
+    e.preventDefault()
     toast.loading('Giriş yapılıyor...')
     await signIn("credentials", {
       email: email,
@@ -55,13 +56,15 @@ export default function Login() {
           <Logo className={'mb-5'} />
           <h1 className="text-4xl font-bold text-white mb-4">Hesabınıza giriş yapın</h1>
           <h4 className='text-gray-400 mb-6'>etkinliğinizi hemen oluşturun</h4>
-          <Input className="mb-6" type="email" label="Email *" onChange={(e) => setEmail(e.target.value)} value={email} />
-          <Input type="password" label="Password *" onChange={(e) => setPassword(e.target.value)} value={password} />
-          <Link href="/reset-password" className='mt-4 text-sm text-green-500 inline-block ml-auto'>
-            Şifremi unuttum
-          </Link>
-          <Button className="my-6" onClick={handleClick}>Giriş Yap</Button>
-          <Link href="/register" className='text-white'>Henüz bir hesabın yok mu? <span className='text-green-500'>Kayıt ol</span> </Link>
+          <form onSubmit={(e) => handleClick(e)}>
+            <Input className="mb-6" type="email" label="Email *" onChange={(e) => setEmail(e.target.value)} value={email} />
+            <Input type="password" label="Password *" onChange={(e) => setPassword(e.target.value)} value={password} />
+            <Link href="/reset-password" className='mt-4 text-sm text-green-500 inline-block ml-auto'>
+              Şifremi unuttum
+            </Link>
+            <Button className="my-6" onClick={handleClick} onEve>Giriş Yap</Button>
+            <Link href="/register" className='text-white'>Henüz bir hesabın yok mu? <span className='text-green-500'>Kayıt ol</span> </Link>
+          </form>
         </div>
       </main>
     </>
