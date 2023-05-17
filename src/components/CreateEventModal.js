@@ -34,7 +34,9 @@ export default function ProfileSettingsModal() {
             setEventName("");
             setDescription("");
             setCourse("");
-            router.push(`/events/${event[event.length - 1]._id}`)
+            setTimeout(() => {
+                router.push(`/events/${event?._id}`)
+            }, 400);
 
         }
         else {

@@ -5,9 +5,11 @@ import '@/styles/globals.css'
 import { useRouter } from 'next/router'
 import { SessionProvider } from "next-auth/react"
 import { Toaster } from 'react-hot-toast'
+import Modal from 'react-modal'
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter()
+  Modal.setAppElement("#__next");
 
   const removedPathFromLayout = ['/login', '/register', '/reset-password', '/']
   const isRemovedPath = removedPathFromLayout.includes(router.pathname)

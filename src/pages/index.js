@@ -7,7 +7,6 @@ import Button from '@/components/Button'
 import toast from 'react-hot-toast'
 import { Logo } from '@/components/icons'
 export default function Home() {
-  Modal.setAppElement("#__next");
   const router = useRouter()
   const [eventCode, setEventCode] = useState('')
 
