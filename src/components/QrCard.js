@@ -6,7 +6,7 @@ export default function QrCard({ eventCode }) {
     return (
         <Card classname="max-w-[261px] h-[375px] flex flex-col items-center justify-center">
             <h1 className="font-bold mt-2 text-center mb-4">Derse katılmak için <br /> QR kodu okutabilirsiniz</h1>
-            <QRCode value={'https://hivecom.vercel.app/events/' + router.query.id} size={200} />
+            <QRCode value={'https://hive.net.tr/events/' + router.query.id} size={200} />
             <span className="font-bold mt-6">
                 {eventCode}
             </span>
