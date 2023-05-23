@@ -2,7 +2,9 @@ import Card from "@/components/Card";
 import Avatar from "@/components/Avatar";
 import { motion } from "framer-motion"
 import { usePresence } from "framer-motion"
-export default function ParticaptionCard({ eventData }) {
+import { useState, useEffect } from "react"
+import { socket } from "@/socket"
+export default function ParticaptionCard() {
     const [isPresent, safeToRemove] = usePresence()
     const transition = { type: 'spring', stiffness: 500, damping: 50, mass: 1 }
     const animations = {
@@ -32,19 +34,40 @@ export default function ParticaptionCard({ eventData }) {
         }
     }
 
+    const [participants, setParticipants] = useState([])
+    useEffect(() => {
+        socket.on("newPartipicant", (participant) => {
+            console.log(participant);
+            setParticipants((prev) => [participant, ...prev])
+        })
+        console.log(participants);
+        return () => {
+            socket.off("newPartipicant")
+        }
+    }, [socket])
+    useEffect(() => {
+        socket.on("disconnectParticipant", (participant) => {
+            console.log(participant);
+            // setParticipants((prev) => [participant, ...prev])
+        })
+        // console.log(participants);
+        return () => {
+            socket.off("disconnectParticipant")
+        }
+    }, [socket])
     return (
         <Card classname="max-w-[261px] flex flex-col items-center overflow-y-auto max-h-[800px]">
             <h1 className="font-bold mt-2 text-center mb-4">Katılımcılar</h1>
 
             {
-                eventData.participants.length > 0 ?
-                    eventData.participants.map((participant) => (
+                participants.length > 0 ?
+                    participants.map((participant) => (
                         <motion.ul
                             variants={container}
                             initial="hidden"
                             animate="show"
                             className="w-full"
-                            key={participant}>
+                            key={participant.name}>
 
                             <motion.li
                                 {...animations}
@@ -53,7 +76,7 @@ export default function ParticaptionCard({ eventData }) {
                                 <div className="w-[30px] h-[30px]">
                                     <Avatar size={30} />
                                 </div>
-                                <span className="pt-1 w-full text-center">{participant}</span>
+                                <span className="pt-1 w-full text-center truncate">{participant.name}</span>
                             </motion.li>
                         </motion.ul>
                     ))
