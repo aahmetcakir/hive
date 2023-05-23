@@ -46,12 +46,11 @@ export default function ParticaptionCard() {
         return () => {
             socket.off("newPartipicant")
             console.log("disconnect");
-            socket.disconnect({ roomId: id })
-            // socket.emit("disconnectParticipantEmit", socket.id)
+            socket.emit("disconnectParticipant", { roomId: id })
         }
     }, [socket])
     useEffect(() => {
-        socket.on("disconnectParticipant", (participant) => {
+        socket.on("updatedParticipant", (participant) => {
             console.log(participant);
             // setParticipants((prev) => prev.filter((p) => p.id !== participant.id))
         })
