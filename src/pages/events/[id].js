@@ -20,7 +20,7 @@ export default function Events({ eventData }) {
     }
 
     const joinEvent = () => {
-        socket.emit("participant", { roomId: eventId })
+        socket.emit("partipicant", { roomId: eventId })
     }
     useEffect(() => {
         joinEvent()
