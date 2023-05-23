@@ -18,7 +18,9 @@ export default function Feeds() {
         <div className="h-full">
             {
                 feeds.length > 0 ? (
-                    <Reorder.Group values={feeds} onReorder={setFeeds}>
+                    <Reorder.Group values={feeds} onReorder={setFeeds} 
+                    className="overflow-y-scroll max-h-[840px] mb-10 h-full"
+                    >
                         <AnimatePresence>
                             {
                                 feeds.map((feed) => (

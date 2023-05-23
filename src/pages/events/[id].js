@@ -42,7 +42,7 @@ export default function Events({ eventData }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className='grid grid-cols-12 sm:gap-x-8 gap-y-8 my-10 sm:my-0 sm:gap-y-0'>
-                <div className='col-span-12 mx-auto sm:col-span-3 sm:order-1'>
+                <div className='col-span-12 mx-auto sm:col-span-3 sm:order-1 mt-40 sm:mt-0'>
                     <InformationCard eventData={eventData} />
                     <QrCard eventCode={eventData.code} />
                 </div>

@@ -13,7 +13,6 @@ export default function Home() {
   const joinEvent = async () => {
     // https://hive-deployment.onrender.com/rooms/e6KW6zMOA
     if (!eventCode) {
-      const defaultRoom = "rzGwLZJZJ"
       setEventCode(defaultRoom)
     }
     if (eventCode) {
