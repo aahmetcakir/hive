@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Send } from "./icons";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import { socket } from "../socket"
 

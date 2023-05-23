@@ -10,29 +10,21 @@ import CreateEventModal from '@/components/CreateEventModal'
 import PasswordChangeModal from '@/components/PasswordChangeModal'
 import DeleteAccount from '@/components/DeleteAccount'
 import { useEffect, useState } from 'react'
-
+import { socket } from '@/socket'
 export default function Events({ eventData }) {
     Modal.setAppElement("#__next");
     const router = useRouter()
-    const eventCode = eventData?.code
     const eventId = eventData?.id
     if (!eventData) {
         return <div>Loading</div>
     }
 
-    const joinEvent = async () => {
-        // if (eventCode) {
-        //     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/${eventCode}`, {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //     })
-        // }
+    const joinEvent = () => {
+        socket.emit("participant", { roomId: eventId })
     }
-    // useEffect(() => {
-    //     joinEvent()
-    // }, [])
+    useEffect(() => {
+        joinEvent()
+    }, [])
     return (
         <>
             <Head>
@@ -47,7 +39,7 @@ export default function Events({ eventData }) {
                     <QrCard eventCode={eventData.code} />
                 </div>
                 <div className="col-span-12 sm:col-span-6 order-first sm:order-2">
-                    <Feeds/>
+                    <Feeds />
                 </div>
                 <div className="sm:col-span-3 hidden sm:block sm:order-3">
                     <ParticaptionCard eventData={eventData} />
