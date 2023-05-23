@@ -9,7 +9,7 @@ import ProfileSettingsModal from '@/components/ProfileSettingsModal'
 import CreateEventModal from '@/components/CreateEventModal'
 import PasswordChangeModal from '@/components/PasswordChangeModal'
 import DeleteAccount from '@/components/DeleteAccount'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Events({ eventData }) {
     Modal.setAppElement("#__next");
@@ -19,19 +19,20 @@ export default function Events({ eventData }) {
     if (!eventData) {
         return <div>Loading</div>
     }
+
     const joinEvent = async () => {
-        if (eventCode) {
-            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/${eventCode}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-        }
+        // if (eventCode) {
+        //     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/${eventCode}`, {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     })
+        // }
     }
-    useEffect(() => {
-        joinEvent()
-    }, [])
+    // useEffect(() => {
+    //     joinEvent()
+    // }, [])
     return (
         <>
             <Head>
@@ -46,7 +47,7 @@ export default function Events({ eventData }) {
                     <QrCard eventCode={eventData.code} />
                 </div>
                 <div className="col-span-12 sm:col-span-6 order-first sm:order-2">
-                    <Feeds />
+                    <Feeds/>
                 </div>
                 <div className="sm:col-span-3 hidden sm:block sm:order-3">
                     <ParticaptionCard eventData={eventData} />
