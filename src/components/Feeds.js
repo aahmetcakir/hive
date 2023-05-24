@@ -3,8 +3,11 @@ import { motion, AnimatePresence, Reorder } from "framer-motion"
 import { useState, useEffect } from "react"
 import MessageBox from "./MessageBox";
 import { socket } from "../socket"
+import { useRouter } from "next/router"
 export default function Feeds() {
     const [feeds, setFeeds] = useState([])
+    const router = useRouter()
+    const { id } = router.query
     useEffect(() => {
         socket.on("newQuestion", (feed) => {
             console.log(feed);
@@ -14,6 +17,15 @@ export default function Feeds() {
             socket.off("newQuestion")
         }
     }, [socket])
+    const getFeeds = async () => {
+        // https://api.hive.net.tr/questions/646513a6d5d51c4cc6126bce
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/${id}`)
+        const data = await res.json()
+        setFeeds(data)
+    }
+    useEffect(() => {
+        getFeeds()
+    }, [])
 
     return (
         <div className="h-full">
