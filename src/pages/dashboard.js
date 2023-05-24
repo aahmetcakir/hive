@@ -33,7 +33,6 @@ export default function Dashboard({ rooms }) {
     // https://api.hive.net.tr/questions/646513a6d5d51c4cc6126bce
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/${id}`)
     const data = await res.json()
-    console.log(data);
     setRoomMessages(data)
   }
 

@@ -10,7 +10,6 @@ export default function Feeds() {
     const { id } = router.query
     useEffect(() => {
         socket.on("newQuestion", (feed) => {
-            console.log(feed);
             setFeeds((prev) => [feed, ...prev])
         })
         return () => {
