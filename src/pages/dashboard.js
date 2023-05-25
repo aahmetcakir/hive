@@ -17,6 +17,7 @@ export default function Dashboard({ rooms }) {
   const { data: status } = useSession()
   const [roomMessages, setRoomMessages] = useState([])
   const [roomId, setRoomId] = useState()
+  const [roomColor, setRoomColor] = useState()
   if (status === "loading") {
     return <p>Yükleniyor...</p>
   }
@@ -27,6 +28,9 @@ export default function Dashboard({ rooms }) {
     </p>
   }
   const swichRoom = (id) => () => {
+    const color = generateRandomColor()
+    setRoomColor(color)
+    console.log(color);
     setRoomId(id)
   }
   const getRoomMessages = async (id) => {
@@ -35,12 +39,19 @@ export default function Dashboard({ rooms }) {
     const data = await res.json()
     setRoomMessages(data)
   }
-
+  const generateRandomColor = () => {
+    const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+    return '#' + randomColor
+  }
   useEffect(() => {
     if (roomId) {
       getRoomMessages(roomId)
     }
   }, [roomId])
+  useEffect(() => {
+    if (roomId) return
+    setRoomId(rooms[0]._id)
+  }, [])
 
   return (
     <>
@@ -51,21 +62,21 @@ export default function Dashboard({ rooms }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className='grid grid-cols-12 gap-8'>
+        <div className='grid grid-cols-12 gap-8 mb-10'>
           <Card classname={"col-span-12 sm:h-[180px] flex flex-col sm:flex-row items-center justify-between  sm:gap-x-4 gap-y-4 py-2 overflow-x-auto"}>
             {
               rooms.length > 0 ?
                 rooms.map((room) => (
-                  <Card key={room._id} classname="flex flex-col w-32 h-32 hover:bg-gray-200 hover:cursor-pointer"
-
+                  <Card key={room._id} classname={`flex flex-col items-center justify-center w-32 h-32 hover:bg-gray-200 hover:cursor-pointer ${roomId == room._id ? "bg-gray-200" : ""} text-[${roomColor}]`}
                     onClick={swichRoom(room._id)}
                   >
-                    <h6 className="text-sm font-bold divide-y-2">
+                    <h6 className={`text-sm font-bold divide-y-2`}>
                       {room.code}
                     </h6>
-                    <QRCode value={'https://hivecom.vercel.app/events/' + room._id} size={200} />
+                    {/* <QRCode value={'https://hive.net.tr/events/' + room._id} size={200} /> */}
                     <Link
                       href={`/events/${room._id}`}
+                      className='hover:text-purple-500 block duration-150 ease-in-out text-center'
                     >
                       odaya git
                     </Link>
@@ -196,7 +207,8 @@ export async function getServerSideProps({ req }) {
       "Authorization": `Bearer ${accessToken}`
     },
   })
-  const data = await res.json()
+  let data = await res.json()
+  data = data.reverse()
 
   return { props: { rooms: data } }
 }
