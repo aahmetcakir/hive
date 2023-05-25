@@ -79,14 +79,6 @@ export default function Dashboard({ rooms }) {
             position: 'bottom',
           }
         },
-        scales: {
-          xAxes: [{
-            display: false,
-          }],
-          yAxes: [{
-            display: false,
-          }],
-        }
       },
 
     });
