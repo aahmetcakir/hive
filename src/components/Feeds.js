@@ -10,7 +10,7 @@ export default function Feeds() {
     const { id } = router.query
     useEffect(() => {
         socket.on("newQuestion", (feed) => {
-            setFeeds((prev) => [feed, ...prev])
+            setFeeds((prev) => [...prev, feed])
         })
         return () => {
             socket.off("newQuestion")
@@ -36,9 +36,11 @@ export default function Feeds() {
                         <AnimatePresence>
                             {
                                 feeds.map((feed) => (
-                                    <Reorder.Item key={feed._id} value={feed}>
+                                    <Reorder.Item key={feed._id} value={feed}
+                                    className="first:mt-2"
+                                    >
                                         <div className="border relative border-darkgray p-3 rounded-lg flex items-center justify-between mb-6">
-                                            <span className="text-gray-500 absolute bottom-9 bg-white px-1">{feed.name}</span>
+                                            <span className="text-gray-500 absolute bottom-9 bg-white px-1">{feed.name || "anonymous"}</span>
                                             <span className="text-gray-900 ">{feed.text}</span>
                                             <motion.button
                                                 whileHover={{ scale: 1.1 }}

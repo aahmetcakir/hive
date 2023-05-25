@@ -11,10 +11,13 @@ import PasswordChangeModal from '@/components/PasswordChangeModal'
 import DeleteAccount from '@/components/DeleteAccount'
 import { useEffect, useState } from 'react'
 import { socket } from '@/socket'
+import { useSession } from "next-auth/react"
 export default function Events({ eventData }) {
     Modal.setAppElement("#__next");
     const router = useRouter()
+    const { data: session } = useSession()
     const eventId = eventData?.id
+    console.log(eventData);
     if (!eventData) {
         return <div>Loading</div>
     }
@@ -41,9 +44,12 @@ export default function Events({ eventData }) {
                 <div className="col-span-12 sm:col-span-6 order-first sm:order-2">
                     <Feeds />
                 </div>
-                <div className="sm:col-span-3 hidden sm:block sm:order-3">
-                    <ParticaptionCard eventData={eventData} />
-                </div>
+                {
+                    eventData.createdBy.id === session?.user?.id &&
+                    <div className="sm:col-span-3 hidden sm:block sm:order-3">
+                        <ParticaptionCard eventData={eventData} />
+                    </div>
+                }
                 <Modal
                     isOpen={!!router.query.profile}
                     onRequestClose={() => router.push(`/events/${eventId}`)}

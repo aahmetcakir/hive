@@ -7,25 +7,19 @@ import CreateEventModal from '@/components/CreateEventModal'
 import PasswordChangeModal from '@/components/PasswordChangeModal'
 import DeleteAccount from '@/components/DeleteAccount'
 import Card from '@/components/Card'
-import QRCode from "react-qr-code";
-import { useSession } from "next-auth/react"
 import { getToken } from "next-auth/jwt"
 import { useEffect, useState } from 'react'
 import { ThumbUp } from '@/components/icons'
 export default function Dashboard({ rooms }) {
   const router = useRouter()
-  const { data: status } = useSession()
   const [roomMessages, setRoomMessages] = useState([])
   const [roomId, setRoomId] = useState()
   const [roomColor, setRoomColor] = useState()
-  if (status === "loading") {
-    return <p>Yükleniyor...</p>
-  }
-
-  if (status === "unauthenticated") {
-    return <p>
-      Önce giriş yapmalısınız.
-    </p>
+  if (rooms.error) {
+    return <div>
+      {rooms.error} <br />
+      önce giriş yapmalısın
+    </div>
   }
   const swichRoom = (id) => () => {
     const color = generateRandomColor()
@@ -50,7 +44,7 @@ export default function Dashboard({ rooms }) {
   }, [roomId])
   useEffect(() => {
     if (roomId) return
-    setRoomId(rooms[0]._id)
+    setRoomId(rooms[0]?._id)
   }, [])
 
   return (
@@ -65,11 +59,16 @@ export default function Dashboard({ rooms }) {
         <div className='grid grid-cols-12 gap-8 mb-10'>
           <Card classname={"col-span-12 sm:h-[180px] flex flex-col sm:flex-row items-center justify-between  sm:gap-x-4 gap-y-4 py-2 overflow-x-auto"}>
             {
-              rooms.length > 0 ?
-                rooms.map((room) => (
-                  <Card key={room._id} classname={`flex flex-col items-center justify-center w-32 h-32 hover:bg-gray-200 hover:cursor-pointer ${roomId == room._id ? "bg-gray-200" : ""} text-[${roomColor}]`}
-                    onClick={swichRoom(room._id)}
+              rooms?.length > 0 ?
+                rooms?.map((room) => (
+                  <Card key={room?._id} classname={`flex flex-col items-center justify-center w-32 h-32 hover:bg-gray-100 hover:cursor-pointer relative`}
+                    onClick={swichRoom(room?._id)}
                   >
+                    {
+                      room?._id === roomId &&
+                      <div className='w-4 h-4 bg-green-500 border-4 border-green-200 rounded-full ring-2 ring-green-300 absolute top-2 right-2'>
+                      </div>
+                    }
                     <h6 className={`text-sm font-bold divide-y-2`}>
                       {room.code}
                     </h6>
@@ -194,12 +193,12 @@ export default function Dashboard({ rooms }) {
   )
 }
 export async function getServerSideProps({ req }) {
-  const { user } = await getToken({
+  const user = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET,
     encryption: true
   })
-  const accessToken = user.tokens.accessToken;
+  const accessToken = user?.user?.tokens.accessToken;
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/user/`, {
     method: 'GET',
     headers: {
@@ -208,7 +207,14 @@ export async function getServerSideProps({ req }) {
     },
   })
   let data = await res.json()
-  data = data.reverse()
+  console.log(data);
+  if (data.error) {
+    return { props: { rooms: data } }
+  }
+  else {
+    data = data.reverse()
+  }
+
 
   return { props: { rooms: data } }
 }

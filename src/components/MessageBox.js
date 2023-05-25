@@ -11,7 +11,10 @@ export default function MessageBox() {
     const { id } = router.query
     const handleSubmit = (e) => {
         e.preventDefault()
-        socket.emit("question", { text: message, roomId: id })
+        socket.emit("question", {
+            text: message, roomId: id,
+            participant: socket.id
+        })
         setMessage("")
     }
     const handleKeyDown = (e) => {
