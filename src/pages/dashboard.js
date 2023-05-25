@@ -10,11 +10,11 @@ import Card from '@/components/Card'
 import { getToken } from "next-auth/jwt"
 import { useEffect, useState } from 'react'
 import { ThumbUp } from '@/components/icons'
+import Chart from "chart.js/auto";
 export default function Dashboard({ rooms }) {
   const router = useRouter()
   const [roomMessages, setRoomMessages] = useState([])
   const [roomId, setRoomId] = useState()
-  const [roomColor, setRoomColor] = useState()
   if (rooms.error) {
     return <div>
       {rooms.error} <br />
@@ -22,20 +22,80 @@ export default function Dashboard({ rooms }) {
     </div>
   }
   const swichRoom = (id) => () => {
-    const color = generateRandomColor()
-    setRoomColor(color)
-    console.log(color);
     setRoomId(id)
   }
+  const chartData = [
+    {
+      id: 1,
+      option: "A) Javascript",
+      value: 32,
+      color: "#FBD89D80",
+    },
+    {
+      id: 2,
+      option: "B) Python",
+      value: 8,
+      color: "#86EFAC80",
+    },
+    {
+      id: 3,
+      option: "C)Java",
+      value: 12,
+      color: "#DCBBFC80",
+    },
+    {
+      id: 4,
+      option: "D) C++",
+      value: 48,
+      color: "#B1CDFB80",
+    }
+  ];
+  useEffect(() => {
+    var ctx = document.getElementById('myChart')?.getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ["Javascript", "Python", "Java", "C++"],
+        datasets: [{
+          data: [32, 8, 12, 48],
+          borderColor: [
+            "rgb(251, 216,157,50%)",
+            "rgb(134, 239, 172,50%)",
+            "rgb(220, 187, 252,50%)",
+            "rgb(177, 205, 251,50%)",
+          ],
+          backgroundColor: [
+            "rgb(251, 216,157,50%)",
+            "rgb(134, 239, 172,50%)",
+            "rgb(220, 187, 252,50%)",
+            "rgb(177, 205, 251,50%)",
+          ],
+          borderWidth: 2,
+        }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            position: 'bottom',
+          }
+        },
+        scales: {
+          xAxes: [{
+            display: false,
+          }],
+          yAxes: [{
+            display: false,
+          }],
+        }
+      },
+
+    });
+  }, [])
   const getRoomMessages = async (id) => {
     // https://api.hive.net.tr/questions/646513a6d5d51c4cc6126bce
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/${id}`)
     const data = await res.json()
     setRoomMessages(data)
-  }
-  const generateRandomColor = () => {
-    const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-    return '#' + randomColor
   }
   useEffect(() => {
     if (roomId) {
@@ -120,10 +180,36 @@ export default function Dashboard({ rooms }) {
               %50
             </div>
           </Card>
-          <Card classname={"sm:col-span-6 col-span-12 h-[355px] flex items-center justify-center hover:bg-gray-200 hover:cursor-pointer"}>
-            <h2 className="text-2xl font-bold ">
-              grafikler
-            </h2>
+          {/* Charts */}
+          <Card classname={"sm:col-span-6 col-span-12 h-[355px] grid grid-cols-12 !p-5"}>
+            <div className='col-span-6'>
+              <canvas id='myChart'></canvas>
+            </div>
+            <div className='col-span-6 flex flex-col gap-5'>
+              {
+                chartData.map((data, index) => (
+                  <div
+                    key={data.id}
+                    className='flex items-center justify-between relative'>
+                    <div className={`h-8 absolute`}
+                      style={{
+                        width: `${data.value}%`,
+                        backgroundColor: `${data.color}`
+                      }}
+                    >
+                    </div>
+                    <div className='text-black z-10 flex items-center justify-between w-full pl-2'>
+                      <span>
+                        {data.option}
+                      </span>
+                      <span>
+                        %{data.value}
+                      </span>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
           </Card>
           <Card classname={"sm:col-span-6 col-span-12 h-[355px] flex-col w-full overflow-auto"}>
             <h2 className="text-2xl font-bold my-2">
