@@ -14,6 +14,7 @@ import Chart from "chart.js/auto";
 export default function Dashboard({ rooms }) {
   const router = useRouter()
   const [roomMessages, setRoomMessages] = useState([])
+  const [roomParticipant, setRoomParticipant] = useState([])
   const [roomId, setRoomId] = useState()
   if (rooms.error) {
     return <div>
@@ -89,9 +90,16 @@ export default function Dashboard({ rooms }) {
     const data = await res.json()
     setRoomMessages(data)
   }
+  const getRoomParticipant = async (id) => {
+    // http://api.hive.net.tr/partipicants/6465151ed5d51c4cc6126bff
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/partipicants/${id}`)
+    const data = await res.json()
+    setRoomParticipant(data)
+  }
   useEffect(() => {
     if (roomId) {
       getRoomMessages(roomId)
+      getRoomParticipant(roomId)
     }
   }, [roomId])
   useEffect(() => {
@@ -109,38 +117,43 @@ export default function Dashboard({ rooms }) {
       </Head>
       <main>
         <div className='grid grid-cols-12 gap-8 mb-10'>
-          <Card classname={"col-span-12 sm:h-[180px] flex flex-col sm:flex-row items-center justify-between  sm:gap-x-4 gap-y-4 py-2 overflow-x-auto"}>
+          <Card classname={"col-span-12 sm:max-h-[180px] grid sm:grid-cols-4 grid-cols-2 sm:flex-row items-center justify-around overflow-y-auto text-center !p-0"}>
             {
               rooms?.length > 0 ?
-                rooms?.map((room) => (
-                  <Card key={room?._id} classname={`flex flex-col items-center justify-center w-32 h-32 hover:bg-gray-100 hover:cursor-pointer relative`}
+                rooms?.map((room, index) => (
+                  <div
+                    key={room?._id}
+                    className='hover:bg-gray-100 min-h-[180px] flex flex-col items-center justify-center cursor-pointer relative
+                      border-r-2
+                      border-b-2
+                    '
                     onClick={swichRoom(room?._id)}
                   >
                     {
                       room?._id === roomId &&
-                      // <div className='w-4 h-4 bg-green-500 border-4 border-green-200 rounded-full ring-2 ring-green-300 absolute top-2 right-2'>
-                      // </div>
-                      <span className="flex h-3 w-3 absolute top-2 right-2">
+                      <span className="flex h-3 w-3 absolute sm:top-5 top-5 right-5 sm:right-5">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                       </span>
                     }
+
                     <h6 className={`text-sm font-bold divide-y-2`}>
-                      {room.code}
+                      {room.eventName}
                     </h6>
-                    {/* <QRCode value={'https://hive.net.tr/events/' + room._id} size={200} /> */}
+
                     <Link
                       href={`/events/${room._id}`}
                       className='hover:text-purple-500 block duration-150 ease-in-out text-center'
                     >
                       odaya git
                     </Link>
-                  </Card>
+                  </div>
                 ))
                 :
                 <span className="text-2xl font-bold text-center">
                   Henüz bir oda oluşturmadınız.
                 </span>
+
             }
           </Card>
           <Link
@@ -148,7 +161,7 @@ export default function Dashboard({ rooms }) {
             href={`?event=open`}
             as={`/events/undefined`}
           >
-            <Card classname={"sm:col-span-4 col-span-12 sm:h-[140px] sm:flex items-center justify-center hover:bg-gray-200 hover:cursor-pointer"}>
+            <Card classname={"sm:col-span-4 col-span-12 sm:h-[140px] sm:flex items-center justify-center hover:bg-gray-200 hover:cursor-pointer p-5"}>
               <span className="text-2xl font-bold text-purple-500 text-center">
                 Yeni Etkinlik <br />
                 Oluştur
@@ -159,7 +172,7 @@ export default function Dashboard({ rooms }) {
             <div>
               Anonim <br />
               Katılımcılar <br />
-              50
+              {roomParticipant.length}
             </div>
             <div className='sm:w-px sm:h-[90px] w-[90px] h-px bg-black'>
             </div>
@@ -173,7 +186,7 @@ export default function Dashboard({ rooms }) {
             <div>
               Soru / <br /> kullanıcı oranı
               <br />
-              %50
+              %{Math.round((roomMessages.length / roomParticipant.length) * 100)}
             </div>
           </Card>
           {/* Charts */}
@@ -199,7 +212,7 @@ export default function Dashboard({ rooms }) {
                       }}
                     >
                     </div>
-                    <div className='text-black z-10 flex items-center justify-between w-full pl-2'>
+                    <div className='text-black flex items-center justify-between w-full pl-2'>
                       <span>
                         {data.option}
                       </span>
@@ -213,7 +226,7 @@ export default function Dashboard({ rooms }) {
             </div>
           </Card>
           <Card classname={"sm:col-span-6 col-span-12 h-[355px] flex-col w-full overflow-auto"}>
-            <h2 className="text-xl font-bold my-2 sticky top-0 bg-white z-10 w-full p-2 text-center">
+            <h2 className="text-xl font-bold my-2 bg-white w-full p-2 text-center">
               Sorular
             </h2>
             {
@@ -233,7 +246,9 @@ export default function Dashboard({ rooms }) {
             }
           </Card>
           <Card classname={"col-span-4 sm:h-[140px] h-[100px] flex flex-col items-center justify-center hover:bg-gray-200 hover:cursor-pointer"}>
-            <span className='text-[#F59E0B] font-semibold sm:text-5xl text-3xl'>50</span>
+            <span className='text-[#F59E0B] font-semibold sm:text-5xl text-3xl'>
+              {roomParticipant.length}
+            </span>
             <span className='font-medium sm:text-xl text-md'>Katılımcı</span>
           </Card>
           <Card classname={"col-span-4 sm:h-[140px] h-[100px] flex flex-col items-center justify-center hover:bg-gray-200 hover:cursor-pointer"}>
