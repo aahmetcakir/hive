@@ -51,8 +51,8 @@ export default function Dashboard({ rooms }) {
     }
   ];
   useEffect(() => {
-    var ctx = document.getElementById('myChart')?.getContext('2d');
-    var myChart = new Chart(ctx, {
+    const ctx = document.getElementById('myChart')?.getContext('2d');
+    const myChart = new Chart(ctx, {
       type: 'doughnut',
       data: {
         labels: ["Javascript", "Python", "Java", "C++"],
@@ -118,8 +118,12 @@ export default function Dashboard({ rooms }) {
                   >
                     {
                       room?._id === roomId &&
-                      <div className='w-4 h-4 bg-green-500 border-4 border-green-200 rounded-full ring-2 ring-green-300 absolute top-2 right-2'>
-                      </div>
+                      // <div className='w-4 h-4 bg-green-500 border-4 border-green-200 rounded-full ring-2 ring-green-300 absolute top-2 right-2'>
+                      // </div>
+                      <span className="flex h-3 w-3 absolute top-2 right-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                      </span>
                     }
                     <h6 className={`text-sm font-bold divide-y-2`}>
                       {room.code}
@@ -174,6 +178,11 @@ export default function Dashboard({ rooms }) {
           </Card>
           {/* Charts */}
           <Card classname={"sm:col-span-6 col-span-12 h-[355px] grid grid-cols-12 !p-5"}>
+            <div className='col-span-12'>
+              <h6 className='text-xl font-bold text-center'>
+                Anket Sonuçları
+              </h6>
+            </div>
             <div className='col-span-6'>
               <canvas id='myChart'></canvas>
             </div>
@@ -204,7 +213,7 @@ export default function Dashboard({ rooms }) {
             </div>
           </Card>
           <Card classname={"sm:col-span-6 col-span-12 h-[355px] flex-col w-full overflow-auto"}>
-            <h2 className="text-2xl font-bold my-2">
+            <h2 className="text-xl font-bold my-2 sticky top-0 bg-white z-10 w-full p-2 text-center">
               Sorular
             </h2>
             {
