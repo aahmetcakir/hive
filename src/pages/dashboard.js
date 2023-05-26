@@ -172,7 +172,7 @@ export default function Dashboard({ rooms }) {
             <div>
               Anonim <br />
               Katılımcılar <br />
-              {roomParticipant.length}
+              {roomParticipant.participantLenght}
             </div>
             <div className='sm:w-px sm:h-[90px] w-[90px] h-px bg-black'>
             </div>
@@ -186,7 +186,7 @@ export default function Dashboard({ rooms }) {
             <div>
               Soru / <br /> kullanıcı oranı
               <br />
-              %{Math.round((roomMessages.length / roomParticipant.length) * 100)}
+              %{Math.round((roomMessages.length / roomParticipant.participantLenght) * 100)}
             </div>
           </Card>
           {/* Charts */}
@@ -247,7 +247,7 @@ export default function Dashboard({ rooms }) {
           </Card>
           <Card classname={"col-span-4 sm:h-[140px] h-[100px] flex flex-col items-center justify-center hover:bg-gray-200 hover:cursor-pointer"}>
             <span className='text-[#F59E0B] font-semibold sm:text-5xl text-3xl'>
-              {roomParticipant.length}
+              {roomParticipant.participantLenght}
             </span>
             <span className='font-medium sm:text-xl text-md'>Katılımcı</span>
           </Card>
@@ -309,7 +309,6 @@ export async function getServerSideProps({ req }) {
     },
   })
   let data = await res.json()
-  console.log(data);
   if (data.error) {
     return { props: { rooms: data } }
   }
