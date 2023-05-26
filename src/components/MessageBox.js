@@ -13,7 +13,6 @@ export default function MessageBox() {
         e.preventDefault()
         socket.emit("question", {
             text: message, roomId: id,
-            participant: socket.id
         })
         setMessage("")
     }

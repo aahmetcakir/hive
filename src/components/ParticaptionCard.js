@@ -51,7 +51,8 @@ export default function ParticaptionCard() {
         socket.on("disconnectParticipant", (participant) => {
             console.log("disconnectParticipant");
             console.log(participant);
-            setParticipants((prev) => prev.filter((p) => p.name !== participant.name))
+            console.log(participants);
+            setParticipants((prev) => prev.filter((p) => p._id !== participant._id))
         })
         return () => {
             socket.off("disconnectParticipant")
