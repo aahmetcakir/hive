@@ -237,7 +237,9 @@ export default function Dashboard({ rooms }) {
                   <span className="text-gray-900 ">{message.text}</span>
                   <div className='relative'>
                     <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2  ${index == 0 ? "border-[#ffef9e]" : index == 1 ? "border-[#e8e8e8]" : index == 2 ? "border-[#f5c28]" : "border-white"}`}>
-                      3
+                      {
+                        message.likeCount
+                      }
                     </span>
                     <ThumbUp />
                   </div>
