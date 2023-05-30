@@ -4,11 +4,8 @@ import { motion } from "framer-motion"
 import { usePresence } from "framer-motion"
 import { useState, useEffect } from "react"
 import { socket } from "@/socket"
-import { useRouter } from "next/router"
 export default function ParticaptionCard() {
     const [isPresent, safeToRemove] = usePresence()
-    const router = useRouter()
-    const { id } = router.query
     const transition = { type: 'spring', stiffness: 500, damping: 50, mass: 1 }
     const animations = {
         layout: true,
@@ -39,7 +36,6 @@ export default function ParticaptionCard() {
     const [participants, setParticipants] = useState([])
     useEffect(() => {
         socket.on("newPartipicant", (participant) => {
-            console.log(participant);
             setParticipants((prev) => [participant, ...prev])
         })
         return () => {
@@ -50,8 +46,6 @@ export default function ParticaptionCard() {
     useEffect(() => {
         socket.on("disconnectParticipant", (participant) => {
             console.log("disconnectParticipant");
-            console.log(participant);
-            console.log(participants);
             setParticipants((prev) => prev.filter((p) => p._id !== participant._id))
         })
         return () => {

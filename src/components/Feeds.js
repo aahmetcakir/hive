@@ -1,4 +1,4 @@
-import { ThumbUp } from "./icons";
+import { ThumbUp, ThumbUpFilled } from "./icons";
 import { motion, AnimatePresence, Reorder } from "framer-motion"
 import { useState, useEffect } from "react"
 import MessageBox from "./MessageBox";
@@ -16,6 +16,14 @@ export default function Feeds() {
             socket.off("newQuestion")
         }
     }, [socket])
+    useEffect(() => {
+        socket.on("questionLiked", (data) => {
+            setFeeds(data.sortedQuestions)
+        })
+        return () => {
+            socket.off("questionLiked")
+        }
+    }, [socket])
     const getFeeds = async () => {
         // https://api.hive.net.tr/questions/646513a6d5d51c4cc6126bce
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/${id}`)
@@ -25,6 +33,14 @@ export default function Feeds() {
     useEffect(() => {
         getFeeds()
     }, [])
+    const likeQuestion = (question) => {
+        const participantName = "anonymous-" + socket?.id?.slice(1, 5)
+        socket.emit("toggleLikeQuestion", {
+            roomId: question.room,
+            questionId: question._id,
+            participantName: participantName
+        })
+    }
 
     return (
         <div className="h-full">
@@ -37,17 +53,42 @@ export default function Feeds() {
                             {
                                 feeds.map((feed) => (
                                     <Reorder.Item key={feed._id} value={feed}
-                                    className="first:mt-2"
+                                        className="first:mt-2"
                                     >
                                         <div className="border relative border-darkgray p-3 rounded-lg flex items-center justify-between mb-6">
-                                            <span className="text-gray-500 absolute bottom-9 bg-white px-1">{feed.name || "anonymous"}</span>
-                                            <span className="text-gray-900 ">{feed.text}</span>
+                                            <span className="text-gray-500 absolute bottom-9 bg-white px-1">{feed.name || feed.participant || "anonymous"}</span>
+                                            <span className="text-gray-900 ">
+                                                {feed?.text}
+                                            </span>
                                             <motion.button
                                                 whileHover={{ scale: 1.1 }}
                                                 whileTap={{ scale: 0.9 }}
-                                                onClick={() => console.log("like")}
+                                                onClick={() => likeQuestion(feed)}
                                             >
-                                                <ThumbUp />
+                                                {
+                                                    feed?.likedBy.indexOf(`anonymous-${socket?.id?.slice(1, 5)}`) != -1 ?
+                                                        <div className='relative text-blue-500'>
+                                                            {
+                                                                feed.likeCount > 0 && (
+                                                                    <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2 border-white`}>
+                                                                        {feed.likeCount}
+                                                                    </span>
+                                                                )
+                                                            }
+                                                            <ThumbUpFilled />
+                                                        </div>
+                                                        :
+                                                        <div className='relative'>
+                                                            {
+                                                                feed.likeCount > 0 && (
+                                                                    <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2 border-white `}>
+                                                                        {feed.likeCount}
+                                                                    </span>
+                                                                )
+                                                            }
+                                                            <ThumbUp />
+                                                        </div>
+                                                }
                                             </ motion.button>
                                         </div>
                                     </Reorder.Item >
