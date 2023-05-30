@@ -10,7 +10,7 @@ export default function Feeds() {
     const { id } = router.query
     useEffect(() => {
         socket.on("newQuestion", (feed) => {
-            setFeeds((prev) => [...prev, feed])
+            setFeeds((prev) => [...prev, { ...feed, likeCount: 0, likedBy: [] }])
         })
         return () => {
             socket.off("newQuestion")
@@ -66,12 +66,12 @@ export default function Feeds() {
                                                 onClick={() => likeQuestion(feed)}
                                             >
                                                 {
-                                                    feed?.likedBy.indexOf(`anonymous-${socket?.id?.slice(1, 5)}`) != -1 ?
+                                                    feed?.likedBy?.indexOf(`anonymous-${socket?.id?.slice(1, 5)}`) != -1 ?
                                                         <div className='relative text-blue-500'>
                                                             {
-                                                                feed.likeCount > 0 && (
+                                                                feed?.likeCount > 0 && (
                                                                     <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2 border-white`}>
-                                                                        {feed.likeCount}
+                                                                        {feed?.likeCount}
                                                                     </span>
                                                                 )
                                                             }
@@ -80,9 +80,9 @@ export default function Feeds() {
                                                         :
                                                         <div className='relative'>
                                                             {
-                                                                feed.likeCount > 0 && (
+                                                                feed?.likeCount > 0 && (
                                                                     <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2 border-white `}>
-                                                                        {feed.likeCount}
+                                                                        {feed?.likeCount}
                                                                     </span>
                                                                 )
                                                             }
