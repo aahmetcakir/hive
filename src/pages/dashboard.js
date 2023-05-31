@@ -126,7 +126,7 @@ export default function Dashboard({ rooms }) {
                 rooms?.map((room, index) => (
                   <div
                     key={room?._id}
-                    className='hover:bg-gray-100 dark:hover:bg-gray-950 min-h-[180px] flex flex-col items-center justify-center cursor-pointer relative
+                    className='hover:bg-gray-100 dark:hover:bg-gray-950 min-h-[180px] flex flex-col items-center justify-center cursor-pointer relative dark:border-gray-700
                       border-r-2
                       border-b-2
                     '
