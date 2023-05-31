@@ -45,7 +45,6 @@ export default function ParticaptionCard() {
     }, [socket])
     useEffect(() => {
         socket.on("disconnectParticipant", (participant) => {
-            console.log("disconnectParticipant");
             setParticipants((prev) => prev.filter((p) => p._id !== participant._id))
         })
         return () => {
@@ -53,16 +52,6 @@ export default function ParticaptionCard() {
         }
     }, [socket])
 
-    // const getParticipants = async () => {
-    //     // http://localhost:3000/partipicants/646e09b94a74a52af7382c44
-    //     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/partipicants/${id}`)
-    //     const data = await res.json()
-    //     console.log(data);
-    //     // setParticipants(data)
-    // }
-    // useEffect(() => {
-    //     getParticipants()
-    // }, [])
     return (
         <Card classname="max-w-[261px] flex flex-col items-center overflow-y-auto max-h-[800px]">
             <h1 className="font-bold mt-2 text-center mb-4">Katılımcılar</h1>

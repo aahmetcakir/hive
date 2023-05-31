@@ -9,15 +9,37 @@ import ProfileSettingsModal from '@/components/ProfileSettingsModal'
 import CreateEventModal from '@/components/CreateEventModal'
 import PasswordChangeModal from '@/components/PasswordChangeModal'
 import DeleteAccount from '@/components/DeleteAccount'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { socket } from '@/socket'
 import { useSession } from "next-auth/react"
+import { Chart as ChartJS, ArcElement, Tooltip } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+import Card from '@/components/Card'
+ChartJS.register(ArcElement, Tooltip);
+export const data = {
+    labels: ["Javascript", "Python", "Java", "C++"],
+    datasets: [{
+        data: [32, 8, 12, 48],
+        borderColor: [
+            "rgb(251, 216,157,50%)",
+            "rgb(134, 239, 172,50%)",
+            "rgb(220, 187, 252,50%)",
+            "rgb(177, 205, 251,50%)",
+        ],
+        backgroundColor: [
+            "rgb(251, 216,157,50%)",
+            "rgb(134, 239, 172,50%)",
+            "rgb(220, 187, 252,50%)",
+            "rgb(177, 205, 251,50%)",
+        ],
+        borderWidth: 2,
+    }],
+};
 export default function Events({ eventData }) {
     Modal.setAppElement("#__next");
     const router = useRouter()
     const { data: session } = useSession()
     const eventId = eventData?.id
-    console.log(eventData);
     if (!eventData) {
         return <div>Loading</div>
     }
@@ -46,8 +68,18 @@ export default function Events({ eventData }) {
                 </div>
                 {
                     eventData.createdBy.id === session?.user?.id &&
-                    <div className="sm:col-span-3 hidden sm:block sm:order-3">
+                    <div className="sm:col-span-3 hidden sm:flex sm:order-3 sm:flex-col sm:justify-between">
                         <ParticaptionCard eventData={eventData} />
+                        <Card classname={"flex flex-col py-10"}>
+                            <div className='col-span-12'>
+                                <h6 className='text-xl font-bold text-center'>
+                                    Anket Sonuçları
+                                </h6>
+                            </div>
+                            <div className='col-span-12 mt-10'>
+                                <Doughnut data={data} width={200} height={200}/>
+                            </div>
+                        </Card>
                     </div>
                 }
                 <Modal

@@ -83,6 +83,9 @@ export default function Dashboard({ rooms }) {
       },
 
     });
+    return () => {
+      myChart.destroy()
+    }
   }, [])
   const getRoomMessages = async (id) => {
     // https://api.hive.net.tr/questions/646513a6d5d51c4cc6126bce
