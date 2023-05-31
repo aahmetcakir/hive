@@ -2,6 +2,7 @@ import ProfileMenu from "./ProfileMenu";
 import Link from "next/link";
 import { Logo } from "./icons";
 import { useSession } from "next-auth/react";
+import ThemeSelector from "./ThemeSelector";
 export default function Header({ classname }) {
   const { data: session } = useSession();
   return (
@@ -9,7 +10,10 @@ export default function Header({ classname }) {
       <Link href={`${session?.user ? "/dashboard" : "/"}`}>
         <Logo />
       </Link>
-      <ProfileMenu />
+      <div className="flex items-center space-x-10">
+        <ThemeSelector />
+        <ProfileMenu />
+      </div>
     </header>
   );
 }

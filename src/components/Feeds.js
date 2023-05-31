@@ -56,8 +56,8 @@ export default function Feeds() {
                                         className="first:mt-2"
                                     >
                                         <div className="border relative border-darkgray p-3 rounded-lg flex items-center justify-between mb-6">
-                                            <span className="text-gray-500 absolute bottom-9 bg-white px-1">{feed.name || feed.participant || "anonymous"}</span>
-                                            <span className="text-gray-900 ">
+                                            <span className="text-gray-500 absolute bottom-9 bg-white dark:bg-[#121212] px-1">{feed.name || feed.participant || "anonymous"}</span>
+                                            <span className="text-gray-900 dark:text-white">
                                                 {feed?.text}
                                             </span>
                                             <motion.button
@@ -70,7 +70,7 @@ export default function Feeds() {
                                                         <div className='relative text-blue-500'>
                                                             {
                                                                 feed?.likeCount > 0 && (
-                                                                    <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2 border-white`}>
+                                                                    <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2 border-white dark:border-[#121212]`}>
                                                                         {feed?.likeCount}
                                                                     </span>
                                                                 )
@@ -78,10 +78,10 @@ export default function Feeds() {
                                                             <ThumbUpFilled />
                                                         </div>
                                                         :
-                                                        <div className='relative'>
+                                                        <div className='relative dark:text-white'>
                                                             {
                                                                 feed?.likeCount > 0 && (
-                                                                    <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2 border-white `}>
+                                                                    <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2 border-white dark:border-[#121212]`}>
                                                                         {feed?.likeCount}
                                                                     </span>
                                                                 )

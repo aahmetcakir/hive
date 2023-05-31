@@ -39,7 +39,7 @@ export default function ProfileMenu() {
     closed: { opacity: 0, y: "-20%", x: "-10%", transition: { duration: 0.1 } },
   }
   return (
-    <Card onClick={() => setIsOpen(!isOpen)} classname={session?.user ? "flex items-center justify-center w-[120px]  sm:w-fit shadow-sm hover:bg-gray-50 cursor-pointer relative" : "flex items-center justify-center"}>
+    <Card onClick={() => setIsOpen(!isOpen)} classname={session?.user ? "flex items-center justify-center w-[120px  sm:w-fit shadow-sm hover:bg-gray-50 cursor-pointer relative" : "flex items-center justify-center"}>
       <div ref={parentRef} className="flex items-center justify-center">
         {
           session?.user.name ?
@@ -67,14 +67,14 @@ export default function ProfileMenu() {
           ref={ref}
           animate={isOpen ? "open" : "closed"}
           variants={variants}
-          className={`absolute top-16 w-40 bg-white rounded-md shadow-md p-2 z-10 ${isOpen ? "block" : "hidden"}`}
+          className={`absolute top-16 w-40 bg-white dark:bg-[#121212] rounded-md shadow-md p-2 z-10 ${isOpen ? "block" : "hidden"}`}
 
         >
-          <motion.div className="flex flex-col  divide-y my-2 space-y-2">
+          <motion.div className="flex flex-col  divide-y my-2 space-y-2 dark:divide-gray-700">
             <Link href="/dashboard" className="block w-full text-center">
               <motion.button
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.8 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 Panel
               </ motion.button>

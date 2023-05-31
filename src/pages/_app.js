@@ -7,6 +7,7 @@ import { SessionProvider } from "next-auth/react"
 import { Toaster } from 'react-hot-toast'
 import Modal from 'react-modal'
 import { Analytics } from '@vercel/analytics/react';
+import ThemeProvider from "@/context/ThemeContext";
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   const router = useRouter()
   Modal.setAppElement("#__next");
@@ -40,15 +41,17 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
   }
   else {
     return (
-      <SessionProvider session={session}>
-        <Layout>
-          <div>
-            <Toaster />
-          </div>
-          <Component {...pageProps} />
-          <Analytics />
-        </Layout >
-      </SessionProvider>
+      <ThemeProvider>
+        <SessionProvider session={session}>
+          <Layout>
+            <div>
+              <Toaster />
+            </div>
+            <Component {...pageProps} />
+            <Analytics />
+          </Layout >
+        </SessionProvider>
+      </ThemeProvider>
     )
   }
 }

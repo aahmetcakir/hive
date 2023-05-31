@@ -126,7 +126,7 @@ export default function Dashboard({ rooms }) {
                 rooms?.map((room, index) => (
                   <div
                     key={room?._id}
-                    className='hover:bg-gray-100 min-h-[180px] flex flex-col items-center justify-center cursor-pointer relative
+                    className='hover:bg-gray-100 dark:hover:bg-gray-950 min-h-[180px] flex flex-col items-center justify-center cursor-pointer relative
                       border-r-2
                       border-b-2
                     '
@@ -164,7 +164,7 @@ export default function Dashboard({ rooms }) {
             href={`?event=open`}
             as={`/events/undefined`}
           >
-            <Card classname={"sm:col-span-4 col-span-12 sm:h-[140px] sm:flex items-center justify-center hover:bg-gray-200 hover:cursor-pointer p-5"}>
+            <Card classname={"sm:col-span-4 col-span-12 sm:h-[140px] sm:flex items-center justify-center  p-5"}>
               <span className="text-2xl font-bold text-purple-500 text-center">
                 Yeni Etkinlik <br />
                 Oluştur
@@ -215,7 +215,7 @@ export default function Dashboard({ rooms }) {
                       }}
                     >
                     </div>
-                    <div className='text-black flex items-center justify-between w-full pl-2'>
+                    <div className='text-black dark:text-white flex items-center justify-between w-full pl-2'>
                       <span>
                         {data.option}
                       </span>
@@ -229,17 +229,15 @@ export default function Dashboard({ rooms }) {
             </div>
           </Card>
           <Card classname={"sm:col-span-6 col-span-12 h-[355px] flex-col w-full overflow-auto"}>
-            <h2 className="text-xl font-bold my-2 bg-white w-full p-2 text-center">
+            <h2 className="text-xl font-bold my-2 bg-transparent w-full p-2 text-center">
               Sorular
             </h2>
             {
               roomMessages.map((message, index) => (
-                <div key={message._id} className={`w-full text-blue-500 flex items-center justify-between border relative border-darkgray p-3 rounded-lg mb-3 ${index == 0 ? "bg-[#ffef9ea4]" : index == 1 ? "bg-[#e8e8e87c]" : index == 2 ? "bg-[#f5c28e60]" : ""}`}>
-                  {/* <span className="text-gray-500 absolute bottom-9 bg-white px-1">{message.name}</span> */}
-                  {/* ${index == 0 ? "bg-[#ffef9e]" : index == 1 ? "bg-[#e8e8e8]" : index == 2 ? "bg-[#f5c18e]" : ""} */}
-                  <span className="text-gray-900 ">{message.text}</span>
+                <div key={message._id} className={`w-full text-blue-500 flex items-center justify-between border relative border-darkgray p-3 rounded-lg mb-3 ${index == 0 ? "bg-[#ffef9ea4] dark:bg-[#ffef9e]" : index == 1 ? "bg-[#e8e8e87c] dark:bg-[#e8e8e8] " : index == 2 ? "bg-[#f5c28e60] dark:bg-[#f5c28e]" : ""}`}>
+                  <span className={`text-gray-900 ${index > 2 ? 'dark:text-white' : ''}`}>{message.text}</span>
                   <div className='relative'>
-                    <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2  ${index == 0 ? "border-[#ffef9e]" : index == 1 ? "border-[#e8e8e8]" : index == 2 ? "border-[#f5c28]" : "border-white"}`}>
+                    <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2  ${index == 0 ? "border-[#ffef9e]" : index == 1 ? "border-[#e8e8e8]" : index == 2 ? "border-[#f5c28e]" : "border-white dark:border-[#121212]"}`}>
                       {
                         message.likeCount
                       }
@@ -250,23 +248,23 @@ export default function Dashboard({ rooms }) {
               ))
             }
           </Card>
-          <Card classname={"col-span-4 sm:h-[140px] h-[100px] flex flex-col items-center justify-center hover:bg-gray-200 hover:cursor-pointer"}>
+          <Card classname={"col-span-4 sm:h-[140px] h-[100px] flex flex-col items-center justify-center"}>
             <span className='text-[#F59E0B] font-semibold sm:text-5xl text-3xl'>
               {roomParticipant.participantLenght}
             </span>
             <span className='font-medium sm:text-xl text-md'>Katılımcı</span>
           </Card>
-          <Card classname={"col-span-4 sm:h-[140px] h-[100px] flex flex-col items-center justify-center hover:bg-gray-200 hover:cursor-pointer"}>
+          <Card classname={"col-span-4 sm:h-[140px] h-[100px] flex flex-col items-center justify-center"}>
             <span className='text-[#76A8F9] font-semibold sm:text-5xl text-3xl'>
               {roomMessages.length}
             </span>
             <span className='font-medium sm:text-xl text-md'>Soru</span>
           </Card>
-          <Card classname={"col-span-4 sm:h-[140px] h-[100px] flex flex-col items-center justify-center hover:bg-gray-200 hover:cursor-pointer"}>
+          <Card classname={"col-span-4 sm:h-[140px] h-[100px] flex flex-col items-center justify-center"}>
             <span className='text-[#C288F9] font-semibold sm:text-5xl text-3xl'>120</span>
             <span className='font-medium sm:text-xl text-md'>Oy</span>
           </Card>
-        </div>
+        </div >
       </main >
       <Modal
         isOpen={!!router.query.profile}

@@ -73,7 +73,7 @@ export default function ParticaptionCard() {
                                 <div className="w-[30px] h-[30px]">
                                     <Avatar size={30} />
                                 </div>
-                                <span className="pt-1 w-full text-center truncate">{participant.name}</span>
+                                <span className="pt-1 w-full text-center truncate dark:text-white">{participant.name}</span>
                             </motion.li>
                         </motion.ul>
                     ))
