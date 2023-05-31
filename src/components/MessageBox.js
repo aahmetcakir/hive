@@ -29,7 +29,7 @@ export default function MessageBox() {
         >
             <textarea
                 ref={textareRef}
-                className="w-full p-2 focus:outline-none resize-none"
+                className="w-full p-2 focus:outline-none resize-none dark:bg-[#121212] dark:text-white"
                 name="messageBox" cols="4" rows="3" placeholder="Sorunuzu yazınız"
                 onChange={(e) => setMessage(e.target.value)}
                 value={message}
