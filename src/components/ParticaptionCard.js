@@ -53,7 +53,7 @@ export default function ParticaptionCard() {
     }, [socket])
 
     return (
-        <Card classname="max-w-[261px] flex flex-col items-center overflow-y-auto max-h-[800px]">
+        <Card classname="max-w-[261px] flex flex-col items-center overflow-y-auto overflow-x-hidden max-h-[800px] px-0">
             <h1 className="font-bold mt-2 text-center mb-4">Katılımcılar</h1>
 
             {
@@ -64,11 +64,12 @@ export default function ParticaptionCard() {
                             initial="hidden"
                             animate="show"
                             className="w-full"
-                            key={participant.name}>
-
+                            key={participant.name}
+                        >
                             <motion.li
+
                                 {...animations}
-                                className="flex items-center mt-2 border-b pb-2 cursor-pointer"
+                                className="flex items-center mt-2 pb-2 cursor-pointer dark:hover:bg-[#121212] px-2 hover:bg-gray-300"
                             >
                                 <div className="w-[30px] h-[30px]">
                                     <Avatar size={30} />

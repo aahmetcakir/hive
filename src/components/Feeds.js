@@ -1,11 +1,17 @@
-import { ThumbUp, ThumbUpFilled } from "./icons";
+import { ThumbUp, ThumbUpFilled, AlignBottom, AlignBottomInvert } from "./icons";
 import { motion, AnimatePresence, Reorder } from "framer-motion"
 import { useState, useEffect } from "react"
 import MessageBox from "./MessageBox";
 import { socket } from "../socket"
 import { useRouter } from "next/router"
+import { ThemeContext } from '@/context/ThemeContext'
+import { useContext } from 'react'
+import { useSession } from "next-auth/react";
 export default function Feeds() {
+    const { isDark } = useContext(ThemeContext);
     const [feeds, setFeeds] = useState([])
+    const [isOwner, setIsOwner] = useState(false)
+    const { data: session } = useSession()
     const router = useRouter()
     const { id } = router.query
     useEffect(() => {
@@ -33,6 +39,11 @@ export default function Feeds() {
     useEffect(() => {
         getFeeds()
     }, [])
+
+    useEffect(() => {
+        checkRoomOwner(session?.user?.rooms, id)
+    }, [session])
+
     const likeQuestion = (question) => {
         const participantName = "anonymous-" + socket?.id?.slice(1, 5)
         socket.emit("toggleLikeQuestion", {
@@ -41,13 +52,23 @@ export default function Feeds() {
             participantName: participantName
         })
     }
-
+    const throwToBottom = (question) => {
+        setFeeds((prev) => prev.filter((q) => q._id !== question._id))
+        setFeeds((prev) => [...prev, question])
+    }
+    const checkRoomOwner = (rooms, id) => {
+        rooms?.forEach((room) => {
+            if (room === id) {
+                setIsOwner(true)
+            }
+        })
+    }
     return (
         <div className="h-full">
             {
                 feeds.length > 0 ? (
                     <Reorder.Group values={feeds} onReorder={setFeeds}
-                        className="overflow-y-scroll max-h-[840px] mb-10 h-full"
+                        className="overflow-y-auto max-h-[840px] mb-10 h-full"
                     >
                         <AnimatePresence>
                             {
@@ -56,40 +77,55 @@ export default function Feeds() {
                                         className="first:mt-2"
                                     >
                                         <div className="border relative border-darkgray p-3 rounded-lg flex items-center justify-between mb-6">
-                                            <span className="text-gray-500 absolute bottom-9 bg-white dark:bg-[#121212] px-1">{feed.name || feed.participant || "anonymous"}</span>
+                                            <span className="text-gray-500 absolute bottom-11 bg-white dark:bg-[#121212] px-1">{feed.name || feed.participant || "anonymous"}</span>
                                             <span className="text-gray-900 dark:text-white">
                                                 {feed?.text}
                                             </span>
-                                            <motion.button
-                                                whileHover={{ scale: 1.1 }}
-                                                whileTap={{ scale: 0.9 }}
-                                                onClick={() => likeQuestion(feed)}
-                                            >
+                                            <div className="space-x-4">
+                                                <motion.button
+                                                    whileHover={{ scale: 1.1 }}
+                                                    whileTap={{ scale: 0.9 }}
+                                                    onClick={() => likeQuestion(feed)}
+                                                >
+                                                    {
+                                                        feed?.likedBy?.indexOf(`anonymous-${socket?.id?.slice(1, 5)}`) != -1 ?
+                                                            <div className='relative text-blue-500'>
+                                                                {
+                                                                    feed?.likeCount > 0 && (
+                                                                        <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2 border-white dark:border-[#121212]`}>
+                                                                            {feed?.likeCount}
+                                                                        </span>
+                                                                    )
+                                                                }
+                                                                <ThumbUpFilled />
+                                                            </div>
+                                                            :
+                                                            <div className='relative dark:text-white'>
+                                                                {
+                                                                    feed?.likeCount > 0 && (
+                                                                        <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2 border-white dark:border-[#121212]`}>
+                                                                            {feed?.likeCount}
+                                                                        </span>
+                                                                    )
+                                                                }
+                                                                <ThumbUp />
+                                                            </div>
+                                                    }
+                                                </ motion.button>
                                                 {
-                                                    feed?.likedBy?.indexOf(`anonymous-${socket?.id?.slice(1, 5)}`) != -1 ?
-                                                        <div className='relative text-blue-500'>
+                                                    isOwner && (
+                                                        <motion.button
+                                                            whileHover={{ scale: 1.1 }}
+                                                            whileTap={{ scale: 0.9 }}
+                                                            onClick={() => throwToBottom(feed)}
+                                                        >
                                                             {
-                                                                feed?.likeCount > 0 && (
-                                                                    <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2 border-white dark:border-[#121212]`}>
-                                                                        {feed?.likeCount}
-                                                                    </span>
-                                                                )
+                                                                isDark ? <AlignBottomInvert /> : <AlignBottom />
                                                             }
-                                                            <ThumbUpFilled />
-                                                        </div>
-                                                        :
-                                                        <div className='relative dark:text-white'>
-                                                            {
-                                                                feed?.likeCount > 0 && (
-                                                                    <span className={`block absolute text-xs left-3 -top-2 bg-blue-500 text-white px-1 py-0.5 rounded-full leading-none border-2 border-white dark:border-[#121212]`}>
-                                                                        {feed?.likeCount}
-                                                                    </span>
-                                                                )
-                                                            }
-                                                            <ThumbUp />
-                                                        </div>
+                                                        </motion.button>
+                                                    )
                                                 }
-                                            </ motion.button>
+                                            </div>
                                         </div>
                                     </Reorder.Item >
                                 ))

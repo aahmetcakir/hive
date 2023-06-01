@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
-import { Send } from "./icons";
-import { useState, useRef, useEffect } from "react";
+import { Send, SendInvert } from "./icons";
+import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { socket } from "../socket"
-
+import { ThemeContext } from '@/context/ThemeContext'
+import { useContext } from 'react'
 export default function MessageBox() {
+    const { isDark } = useContext(ThemeContext);
     const [message, setMessage] = useState("")
     const router = useRouter()
     const textareRef = useRef(null)
@@ -39,9 +41,12 @@ export default function MessageBox() {
             <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
+                className="text-white"
                 onClick={handleSubmit}
             >
-                <Send />
+                {
+                    isDark ? <SendInvert /> : <Send />
+                }
             </ motion.button>
         </div>
     )
