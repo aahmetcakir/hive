@@ -8,16 +8,21 @@ import Sun from "@/components/icons/Sun";
 import SendInvert from "@/components/icons/SendInvert";
 import AlignBottom from "@/components/icons/AlignBottom";
 import AlignBottomInvert from "@/components/icons/AlignBottomInvert";
-
+import LinePattern from "@/components/icons/LinePattern";
+import LinePatternSection from "@/components/icons/LinePatternSection";
+import Thick from "@/components/icons/Thick";
 export {
     AlignBottom,
     AlignBottomInvert,
+    LinePattern,
+    LinePatternSection,
+    Thick,
     Moon,
-    SendInvert,
     Sun,
     ThumbUp,
     ThumbUpFilled,
     ThumbDown,
     Logo,
+    SendInvert,
     Send
 }
