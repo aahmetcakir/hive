@@ -1,43 +1,40 @@
 import Head from 'next/head'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
-import Input from '@/components/Input'
-import Button from '@/components/Button'
-import toast from 'react-hot-toast'
-import { Logo } from '@/components/icons'
+// import { useRouter } from 'next/router'
+// import { useState } from 'react'
+// import toast from 'react-hot-toast'
+import { Header, Hero, Footer, Metrics, Pricing } from '@/components/Landing'
 export default function Home() {
-  const router = useRouter()
-  const [eventCode, setEventCode] = useState('')
+  // const router = useRouter()
+  // const [eventCode, setEventCode] = useState('')
 
-  const joinEvent = async () => {
-    // https://hive-deployment.onrender.com/rooms/e6KW6zMOA
-    if (!eventCode) {
-      setEventCode(defaultRoom)
-    }
-    if (eventCode) {
-      toast.loading('Odaya giriş yapılıyor...')
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/${eventCode}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      if (res.status === 200) {
-        const data = await res.json()
-        toast.dismiss()
-        toast.success(data.message || 'Odaya giriş yapıldı')
-        setTimeout(() => {
-          router.push(`/events/${data.participant.room}`)
-        }, 300)
-      }
-      else {
-        const err = await res.json()
-        toast.dismiss()
-        toast.error(err.message || 'Odaya giriş yapılamadı')
-      }
-    }
-  }
+  // const joinEvent = async () => {
+  //   // https://hive-deployment.onrender.com/rooms/e6KW6zMOA
+  //   if (!eventCode) {
+  //     setEventCode(defaultRoom)
+  //   }
+  //   if (eventCode) {
+  //     toast.loading('Odaya giriş yapılıyor...')
+  //     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rooms/${eventCode}`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     })
+  //     if (res.status === 200) {
+  //       const data = await res.json()
+  //       toast.dismiss()
+  //       toast.success(data.message || 'Odaya giriş yapıldı')
+  //       setTimeout(() => {
+  //         router.push(`/events/${data.participant.room}`)
+  //       }, 300)
+  //     }
+  //     else {
+  //       const err = await res.json()
+  //       toast.dismiss()
+  //       toast.error(err.message || 'Odaya giriş yapılamadı')
+  //     }
+  //   }
+  // }
   return (
     <>
       <Head>
@@ -46,21 +43,14 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <Logo className={"mb-5"} />
-        <h1 className="text-4xl font-bold text-white mb-4 text-center">Etkinliğe katılın</h1>
-        <h4 className='text-gray-400 mb-6 text-center'>Hocanızdan aldığınız kodu aşağı giriniz</h4>
-        <Input className="mb-6" type="text" placeholder={'Etkinlik kodunu giriniz'} onChange={(e) => setEventCode(e.target.value)} value={eventCode} />
-        <Button onClick={() => joinEvent()}>
-          Etkinliğe katıl
-        </Button>
-        <Link
-          href="/login"
-          className=" text-sm font-medium mt-4 text-white border p-3 rounded block mx-auto w-40 text-center
-          hover:bg-green-600 transition duration-200 ease-in-out"
-        >
-          <span>Giriş yap</span>
-        </Link>
+      <main
+        className='max-w-[1280px] w-full h-screen mx-auto'
+      >
+        <Header />
+        <Hero />
+        <Pricing />
+        <Metrics />
+        <Footer />
       </main >
     </>
   )
