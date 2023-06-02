@@ -12,9 +12,11 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
   const router = useRouter()
   Modal.setAppElement("#__next");
 
-  const removedPathFromLayout = ['/login', '/register', '/reset-password', '/']
+  const removedPathFromLayout = ['/login', '/register', '/reset-password']
+  const landingPages = ['/',]
   const isRemovedPath = removedPathFromLayout.includes(router.pathname)
   const isErrorLayout = router.pathname.includes('/404', '/500')
+  const isLandingPage = landingPages.includes(router.pathname)
 
   if (isRemovedPath) {
     return (
@@ -37,6 +39,21 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
           <Analytics />
         </ErrorLayout>
       </SessionProvider>
+    )
+  }
+  else if (isLandingPage) {
+    return (
+      <ThemeProvider>
+        <SessionProvider session={session}>
+          {/* <Layout> */}
+          <div>
+            <Toaster />
+          </div>
+          <Component {...pageProps} />
+          <Analytics />
+          {/* </Layout > */}
+        </SessionProvider>
+      </ThemeProvider>
     )
   }
   else {
