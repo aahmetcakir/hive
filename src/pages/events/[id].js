@@ -69,7 +69,7 @@ export default function Events({ eventData }) {
                 {
                     eventData.createdBy.id === session?.user?.id &&
                     <div className="sm:col-span-3 hidden sm:flex sm:order-3 sm:flex-col sm:justify-between">
-                        <ParticaptionCard eventData={eventData} />
+                        <ParticaptionCard />
                         <Card classname={"flex flex-col py-10"}>
                             <div className='col-span-12'>
                                 <h6 className='text-xl font-bold text-center'>
