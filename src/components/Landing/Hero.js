@@ -11,21 +11,20 @@ export default function Hero() {
                 </div>
                 <div className="relative -top-10">
                     <span className="text-7xl bg-clip-text text-center block bg-gradient-to-t from-purple-300 to-white text-transparent">
-                        Grow your users. <br />
-                        Smarter.
+                        Basit, Güçlü. <br />
+                        İnteraktif.
                     </span>
                     <span className="text-xl text-white leading-8 text-center mt-6 block">
-                        Powerful, self-serve product and growth analytics to help you convert, engage, <br />
-                        and retain more users. Trusted by over 4,000 startups.
+                        Güçlü, etkileşim dolu bir deneyim için Hive ile etkinliklere interaktif bir dokunuş katın.
                     </span>
                     <div className="flex space-x-4 w-full items-start justify-center mt-12">
                         <div>
                             <Input placeholder={"Etkinlik kodunu gir"} className={"min-w-[360px]"}>
                             </Input>
                             <span className="text-white text-sm font-normal">
-                                We care about your data in our {""}
+                               Gizliliğinize önem veriyoruz. {""}
                                 <span className="underline">
-                                    privacy policy
+                                    Gizlilik sözleşmesi
                                 </span>
                                 .
                             </span>

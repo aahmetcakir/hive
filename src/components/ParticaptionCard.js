@@ -40,7 +40,7 @@ export default function ParticaptionCard() {
         })
         return () => {
             socket.off("newPartipicant")
-            // socket.disconnect()
+            socket.disconnect()
         }
     }, [socket])
     useEffect(() => {

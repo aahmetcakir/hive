@@ -3,10 +3,10 @@ export default function Metrics() {
         <div className="my-24">
             <div className="text-center mb-16">
                 <h6 className="font-semibold leading-10 text-4xl">
-                    Unleash the full power of data
+                   Verinin gücüne inanıyoruz.
                 </h6>
                 <span className="text-xl text-[#475467]">
-                    Everything you need to convert, engage, and retain more users.
+                   Hızlı ve kolay etkileşim için ihtiyacınız olan her şey.
                 </span>
             </div>
             <div>

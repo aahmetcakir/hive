@@ -5,17 +5,17 @@ export default function Pricing() {
         <div className="my-24 px-8">
             <div className="text-center font-semibold mb-16">
                 <span className="text-[#6941C6]">
-                    Pricing
+                    Ödeme
                 </span>
                 <h6 className="text-4xl mb-5 mt-3">
-                    Plans that fit your scale
+                    Ölçeğinize uygun planlar.
                 </h6>
                 <p className="text-[#475467] font-normal text-xl">
                     Simple, transparent pricing that grows with you. Try any plan free for 30 days.
                 </p>
             </div>
             <div className="flex items-center justify-center gap-8">
-                <div className="border rounded-2xl w-full py-8">
+                {/* <div className="border rounded-2xl w-full py-8">
                     <div className="flex items-center justify-between px-8">
                         <div className="flex flex-col">
                             <span className="font-semibold text-2xl">
@@ -113,7 +113,7 @@ export default function Pricing() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="border rounded-2xl w-full py-8">
                     <div className="flex items-center justify-between px-8">
