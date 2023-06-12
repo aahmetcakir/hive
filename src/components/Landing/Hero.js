@@ -16,10 +16,10 @@ export default function Hero() {
             console.log(participant);
             router.push(`/events/${participant.roomId}`)
         })
-        return () => {
-            socket.off("newParticipant")
-            socket.disconnect()
-        }
+        // return () => {
+        //     socket.off("newParticipant")
+        //     socket.disconnect()
+        // }
     }, [socket])
     const handleClick = (roomCode) => {
         joinEvent(roomCode);
