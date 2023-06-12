@@ -35,11 +35,11 @@ export default function ParticaptionCard() {
     }
     const [participants, setParticipants] = useState([])
     useEffect(() => {
-        socket.on("newPartipicant", (participant) => {
+        socket.on("newParticipant", (participant) => {
             setParticipants((prev) => [participant, ...prev])
         })
         return () => {
-            socket.off("newPartipicant")
+            socket.off("newParticipant")
             socket.disconnect()
         }
     }, [socket])
