@@ -140,7 +140,11 @@ export default function Feeds() {
                     </div>
                 )
             }
-            <MessageBox />
+            {
+                !isOwner &&
+                <MessageBox />
+
+            }
         </div>
     );
 }
